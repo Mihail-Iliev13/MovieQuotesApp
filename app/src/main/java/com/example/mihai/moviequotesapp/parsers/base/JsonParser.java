@@ -1,8 +1,10 @@
 package com.example.mihai.moviequotesapp.parsers.base;
 
+import java.util.List;
+
 public interface JsonParser<T> {
 
-    T[] fromJsonToArray(String json);
+    List<T> fromJsonToList(String json);
     T fromJsonToObject (String json);
     String toJson (T object);
 

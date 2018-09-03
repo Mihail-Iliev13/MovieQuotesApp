@@ -3,6 +3,9 @@ package com.example.mihai.moviequotesapp.parsers;
 import com.example.mihai.moviequotesapp.parsers.base.JsonParser;
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GsonParser<T> implements JsonParser<T> {
 
     private Class<T> mKlass;
@@ -16,8 +19,9 @@ public class GsonParser<T> implements JsonParser<T> {
     }
 
     @Override
-    public T[] fromJsonToArray(String json) {
-       return mGson.fromJson(json, mKlassArray);
+    public List<T> fromJsonToList(String json) {
+       T[] array = mGson.fromJson(json, mKlassArray);
+        return Arrays.asList(array);
     }
 
     @Override
