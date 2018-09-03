@@ -1,4 +1,4 @@
-package com.example.mihai.moviequotesapp.httprequester.base;
+package com.example.mihai.moviequotesapp.httprequesters.base;
 
 import java.io.IOException;
 

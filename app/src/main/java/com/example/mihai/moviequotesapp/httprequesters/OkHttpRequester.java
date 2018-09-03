@@ -1,6 +1,6 @@
-package com.example.mihai.moviequotesapp.httprequester;
+package com.example.mihai.moviequotesapp.httprequesters;
 
-import com.example.mihai.moviequotesapp.httprequester.base.HttpRequester;
+import com.example.mihai.moviequotesapp.httprequesters.base.HttpRequester;
 
 import java.io.IOException;
 
@@ -64,7 +64,7 @@ public class OkHttpRequester implements HttpRequester {
 
     @Override
     public String delete(String url, String json) throws IOException {
-        
+
         RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), json);
         Request request = new Request.Builder()
                 .url(url)
