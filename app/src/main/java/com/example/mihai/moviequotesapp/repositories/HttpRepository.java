@@ -13,7 +13,9 @@ public class HttpRepository<T> implements Repository<T> {
     private HttpRequester mRequester;
     private JsonParser<T> mJsonParser;
 
-    public HttpRepository (String url, HttpRequester requester, JsonParser jsonParser) {
+    public HttpRepository (String url, HttpRequester requester,
+                           JsonParser<T> jsonParser) {
+
         this.mServerUrl = url;
         this.mRequester = requester;
         this.mJsonParser = jsonParser;
