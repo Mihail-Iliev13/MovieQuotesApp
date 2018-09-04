@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.CreateQuoteFragment">
+    tools:context=".views.fragments.GenerateQuoteFragment">
 
  <RelativeLayout
      android:layout_width="match_parent"
@@ -12,7 +12,13 @@
      <TextView
          android:id="@+id/tv_quote_text"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content" />
+         android:layout_height="wrap_content"
+         android:text="@string/write_your_quote_here"
+         android:textSize="25sp"
+         android:textStyle="bold"
+         android:paddingLeft="10dp"
+         android:paddingTop="10dp"
+         />
 
      <EditText
          android:id="@+id/et_quote_text"
@@ -26,6 +32,11 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_below="@id/et_quote_text"
+         android:text="@string/movie"
+         android:textSize="25sp"
+         android:textStyle="bold"
+         android:paddingLeft="10dp"
+         android:paddingTop="10dp"
          />
 
      <EditText
@@ -40,6 +51,11 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_below="@id/et_movie"
+         android:text="@string/who_said_it"
+         android:textSize="25sp"
+         android:textStyle="bold"
+         android:paddingLeft="10dp"
+         android:paddingTop="10dp"
          />
 
      <EditText
@@ -52,17 +68,26 @@
      <RatingBar
          android:id="@+id/rb_rating"
          android:layout_centerInParent="true"
-         android:layout_width="match_parent"
+         android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@id/et_character"
+         android:numStars="5"
+
+         android:paddingTop="10dp"
          />
 
      <Button
          android:id="@+id/btn_button"
-         android:gravity="center"
+         android:layout_centerInParent="true"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@id/rb_rating"
+         android:text="@string/create"
+         android:textSize="35sp"
+         android:textStyle="bold"
+         android:background="@android:color/holo_green_light"
+         android:padding="15dp"
+         android:paddingTop="30dp"
          />
 
  </RelativeLayout>
