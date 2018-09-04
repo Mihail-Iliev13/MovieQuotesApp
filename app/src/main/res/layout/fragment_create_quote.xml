@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.fragments.CreateQuoteFragment">
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+     <TextView
+         android:id="@+id/tv_quote_text"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+     <EditText
+         android:id="@+id/et_quote_text"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/tv_quote_text"
+         />
+
+     <TextView
+         android:id="@+id/tv_movie"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/et_quote_text"
+         />
+
+     <EditText
+         android:id="@+id/et_movie"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/tv_movie"
+         />
+
+     <TextView
+         android:id="@+id/tv_character"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/et_movie"
+         />
+
+     <EditText
+         android:id="@+id/et_character"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/tv_character"
+         />
+
+     <RatingBar
+         android:id="@+id/rb_rating"
+         android:layout_centerInParent="true"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/et_character"
+         />
+
+     <Button
+         android:id="@+id/btn_button"
+         android:gravity="center"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/rb_rating"
+         />
+
+ </RelativeLayout>
+
+</FrameLayout>
