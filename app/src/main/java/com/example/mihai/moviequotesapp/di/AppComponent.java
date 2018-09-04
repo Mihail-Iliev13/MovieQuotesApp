@@ -15,7 +15,11 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         ApplicationModule.class,
         ActivityBindingModule.class,
-        AndroidSupportInjectionModule.class})
+        AndroidSupportInjectionModule.class,
+        RepositoriesModule.class,
+        ParsersModule.class,
+        HttpRequesterModule.class
+})
 public interface AppComponent extends AndroidInjector<MovieQuotesApp> {
 
     @Component.Builder

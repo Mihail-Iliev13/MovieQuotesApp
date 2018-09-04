@@ -12,7 +12,9 @@ import okhttp3.Response;
 
 public class OkHttpRequester implements HttpRequester {
 
+
     private OkHttpClient mClient;
+
 
     public OkHttpRequester (OkHttpClient client) {
         this.mClient = client;

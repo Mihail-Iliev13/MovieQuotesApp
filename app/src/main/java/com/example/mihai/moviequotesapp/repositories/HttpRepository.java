@@ -7,12 +7,15 @@ import com.example.mihai.moviequotesapp.repositories.base.Repository;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HttpRepository<T> implements Repository<T> {
 
     private String mServerUrl;
     private HttpRequester mRequester;
     private JsonParser<T> mJsonParser;
 
+    @Inject
     public HttpRepository (String url, HttpRequester requester,
                            JsonParser<T> jsonParser) {
 
