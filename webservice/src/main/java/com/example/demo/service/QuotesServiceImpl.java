@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class QuotesServiceImpl implements QuotesService {
     private QuotesRepository repo;
+    int id=1;
 @Autowired
     public QuotesServiceImpl(QuotesRepository repo) {
         this.repo = repo;
@@ -16,7 +17,9 @@ public class QuotesServiceImpl implements QuotesService {
 
     @Override
     public void createQuote(Quote quote) {
-repo.createQuote(quote);
+quote.setId(id);
+id++;
+    repo.createQuote(quote);
     }
 
     @Override

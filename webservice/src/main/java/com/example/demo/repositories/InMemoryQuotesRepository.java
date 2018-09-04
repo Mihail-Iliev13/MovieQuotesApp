@@ -12,7 +12,7 @@ public class InMemoryQuotesRepository implements QuotesRepository {
 
     public InMemoryQuotesRepository()
     {
-        quotes.add(new Quote(1,"I'll be back","The Terminator","Terminator",5));
+        quotes.add(new Quote("I'll be back","The Terminator","Terminator",5));
     }
 
     @Override

@@ -12,8 +12,7 @@ public Quote(){
     //def constructor required
 }
 
-    public Quote(int id, String quoteText, String movie, String quotedCharacter, int rating) {
-        this.id = id;
+    public Quote(String quoteText, String movie, String quotedCharacter, int rating) {
         this.quoteText = quoteText;
         this.movie = movie;
         this.quotedCharacter = quotedCharacter;
