@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 public class Quote {
 
@@ -6,7 +6,7 @@ public class Quote {
     private String quoteText;
     private String movie;
     private String quotedCharacter;
-    private int rating;
+    private float rating;
 
 public Quote(){
     //def constructor required
@@ -20,7 +20,7 @@ public Quote(){
         this.rating = rating;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
