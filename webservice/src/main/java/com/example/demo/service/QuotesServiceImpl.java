@@ -9,10 +9,13 @@ import java.util.List;
 @Service
 public class QuotesServiceImpl implements QuotesService {
     private QuotesRepository repo;
-    int id=1;
+    private static final int STARTING_ID = 1;
+    private int id;
+
 @Autowired
     public QuotesServiceImpl(QuotesRepository repo) {
         this.repo = repo;
+        id = STARTING_ID;
     }
 
     @Override
