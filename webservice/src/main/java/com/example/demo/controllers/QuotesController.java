@@ -24,26 +24,26 @@ private QuotesService service;
         }
 
 
-        @GetMapping("api/quotes/all")
+        @GetMapping("/all")
 public List<Quote> getQuotes()
 {
 return service.getQuotes();
 }
 
-        @GetMapping("api/quotes/{id}")
+        @GetMapping("id/{id}")
 public Quote getQuoteById(@PathVariable int id){
 return service.getQuoteById(id);
         }
-        @PostMapping("api/quotes/new")
+        @PostMapping("/new")
         public void CreateQuote(@RequestBody Quote newquote){
 service.createQuote(newquote);
         }
-        @PutMapping("/quotes/{id}")
+        @PutMapping("/{id}")
         public void UpdateQuote( @PathVariable int id,@RequestBody Quote newQuote) {
 service.updateQuote(id,newQuote);
          }
 
-        @DeleteMapping("/quotes/{id}")
+        @DeleteMapping("/{id}")
         void deleteEmployee(@PathVariable int id) {
 service.deleteQuote(id);
         }
