@@ -8,6 +8,9 @@ public class Quote {
     private String quotedCharacter;
     private int rating;
 
+public Quote(){
+    //def constructor required
+}
 
     public Quote(int id, String quoteText, String movie, String quotedCharacter, int rating) {
         this.id = id;
