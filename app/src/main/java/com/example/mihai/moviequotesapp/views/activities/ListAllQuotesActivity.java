@@ -58,7 +58,7 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity implements Li
 
     @Override
     public void selectQuotes(Quote quote) {
-        mView.showQuoteDetails(quote);
+        mView.ShowQuoteDetails(quote);
     }
 
     @Override
