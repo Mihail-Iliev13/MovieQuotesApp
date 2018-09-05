@@ -27,6 +27,7 @@ public class CreateQuoteActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int b = 5;
+        int v = 2;
         setContentView(R.layout.activity_two_fragment_layout);
 
         mDrawer.setID(Constants.CREATE_ACTIVITY_ID);
