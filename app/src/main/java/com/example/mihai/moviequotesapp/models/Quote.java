@@ -1,8 +1,12 @@
 package com.example.mihai.moviequotesapp.models;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
 import javax.inject.Inject;
 
-public class Quote {
+public class Quote implements Comparable<Quote>, Serializable{
 
     public int id;
     public String quoteText;
@@ -44,5 +48,15 @@ public class Quote {
 
     public String getQuotedCharacter() {
         return quotedCharacter;
+    }
+
+    @Override
+    public int compareTo(@NonNull Quote quote2) {
+        if (getRating() > quote2.getRating()) {
+            return 1;
+        } else if (getRating() < quote2.getRating()) {
+            return -1;
+        }
+        return 0;
     }
 }

@@ -18,17 +18,17 @@ public class QuotesAdapter extends ArrayAdapter {
 
     private int mLayout;
 
-    public QuotesAdapter(@NonNull Context context, int resource, @NonNull List objects) {
-        super(context, resource, objects);
+    public QuotesAdapter(@NonNull Context context, int resource) {
+        super(context, resource);
         mLayout = resource;
     }
+
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder mainViewHolder;
         Quote quote = (Quote) getItem(position);
-
 
         if (convertView == null) {
 
@@ -68,8 +68,8 @@ public class QuotesAdapter extends ArrayAdapter {
         }
 
         private void showQuoteText (Quote quote) {
-
-            this.quoteText.setText(quote.getText());
+            String text = "\"" + quote.getText() + "\"";
+            this.quoteText.setText(text);
         }
 
         private void showQuoteRating(Quote quote) {

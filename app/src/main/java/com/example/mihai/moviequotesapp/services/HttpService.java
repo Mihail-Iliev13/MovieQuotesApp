@@ -8,6 +8,7 @@ import com.example.mihai.moviequotesapp.services.base.QuoteService;
 import com.example.mihai.moviequotesapp.validators.base.Validator;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,9 @@ public class HttpService implements QuoteService {
 
     @Override
     public List<Quote> getAll() throws IOException {
-        return mRepository.getAll();
+        List<Quote> quotesList =  mRepository.getAll();
+        Collections.sort(quotesList, Collections.reverseOrder());
+        return quotesList;
     }
 
     @Override
@@ -59,9 +62,10 @@ public class HttpService implements QuoteService {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return getAll().stream()
-                    .filter(quote ->quote.quoteText.toLowerCase().contains(patternToLower))
+                    .filter(quote -> quote.getText().toLowerCase().contains(patternToLower))
                     .collect(Collectors.toList());
         }
 
+        return null;
     }
 }

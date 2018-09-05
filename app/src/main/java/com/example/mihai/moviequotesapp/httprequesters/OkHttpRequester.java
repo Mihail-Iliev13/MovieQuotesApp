@@ -50,7 +50,6 @@ public class OkHttpRequester implements HttpRequester {
                 client.newCall(request)
                 .execute();
 
-        int b = 6;
         return response.body().string();
     }
 

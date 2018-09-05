@@ -87,7 +87,7 @@
          android:textStyle="bold"
          android:background="@android:color/holo_green_light"
          android:padding="15dp"
-         android:paddingTop="30dp"
+         android:paddingTop="50dp"
          />
 
  </RelativeLayout>

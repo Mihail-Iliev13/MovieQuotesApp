@@ -12,9 +12,9 @@ public interface ListAllQuotesContracts {
 
     }
     interface Presenter{
-        void subscribe(View view);
+        void setView(View view);
         void loadQuotes();
-        void flterQuotes(String pattern);
+        void filterQuotes(String pattern);
         void selectQuotes(Quote quote);
         void presentQuotesToView(List<Quote> quotes);
     }
