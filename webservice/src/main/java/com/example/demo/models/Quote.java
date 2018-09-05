@@ -1,11 +1,26 @@
 package com.example.demo.models;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public class Quote {
 
+    @Positive (message = "id should be positive number")
     private int id;
+
+    @NotNull(message = "Quote text must not be null")
     private String quoteText;
+
+    @NotNull(message =  "Movie name must not be null")
     private String movie;
+
+    @NotNull(message = "Quoted character must not be null")
     private String quotedCharacter;
+
+    @Min(value = 0, message = "Rating must be positive")
+    @Max(value = 5, message = "Rating must be below 5")
     private float rating;
 
 public Quote(){
