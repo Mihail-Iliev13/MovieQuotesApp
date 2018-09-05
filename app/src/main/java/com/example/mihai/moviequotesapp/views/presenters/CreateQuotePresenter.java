@@ -1,15 +1,26 @@
 package com.example.mihai.moviequotesapp.views.presenters;
 
+import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
 import com.example.mihai.moviequotesapp.views.contracts.GenerateQuoteContracts;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
 
-    GenerateQuoteContracts.View mView;
-    QuoteService mService;
+   private GenerateQuoteContracts.View mView;
+   private AsyncRunner mAsyncRunner;
+
+   public QuoteService mService;
+
+    @Inject
+    public CreateQuotePresenter(QuoteService service, AsyncRunner asyncRunner){
+        this.mService = service;
+        this.mAsyncRunner = asyncRunner;
+    }
 
     @Override
     public void generateQuote() throws IOException {
@@ -19,7 +30,14 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
         float quoteRating = mView.getRating();
 
         Quote newQuote = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
-        mService.createQuote(newQuote);
+        mAsyncRunner.runInBackground(() -> {
+            try {
+                mService.createQuote(newQuote);
+                mView.showToast(newQuote);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

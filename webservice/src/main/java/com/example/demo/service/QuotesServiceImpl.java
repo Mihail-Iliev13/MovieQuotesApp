@@ -8,40 +8,41 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class QuotesServiceImpl implements QuotesService {
+
     private QuotesRepository repo;
     private static final int STARTING_ID = 1;
     private int id;
 
 @Autowired
-    public QuotesServiceImpl(QuotesRepository repo) {
+public QuotesServiceImpl(QuotesRepository repo) {
         this.repo = repo;
         id = STARTING_ID;
-    }
+}
 
-    @Override
-    public void createQuote(Quote quote) {
-quote.setId(id);
-id++;
+@Override
+public void createQuote(Quote quote) {
+    quote.setId(id);
+    id++;
     repo.createQuote(quote);
-    }
+}
 
-    @Override
-    public List<Quote> getQuotes() {
+@Override
+public List<Quote> getQuotes() {
         return repo.getQuotes();
     }
 
-    @Override
-    public Quote getQuoteById(int id) {
+@Override
+public Quote getQuoteById(int id) {
         return repo.getQuoteById(id);
     }
 
-    @Override
-    public void updateQuote(int id, Quote quote) {
+@Override
+public void updateQuote(int id, Quote quote) {
 repo.updateQuote(id, quote);
     }
 
-    @Override
-    public void deleteQuote(int id) {
+@Override
+public void deleteQuote(int id) {
 repo.deleteQuote(id);
     }
 }

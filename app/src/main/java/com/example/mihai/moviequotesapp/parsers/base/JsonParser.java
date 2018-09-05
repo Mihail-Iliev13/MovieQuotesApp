@@ -1,11 +1,13 @@
 package com.example.mihai.moviequotesapp.parsers.base;
 
+import com.example.mihai.moviequotesapp.models.Quote;
+
 import java.util.List;
 
-public interface JsonParser<T> {
+public interface JsonParser {
 
-    List<T> fromJsonToList(String json);
-    T fromJsonToObject (String json);
-    String toJson (T object);
+    List<Quote> fromJsonToList(String json);
+    Quote fromJsonToObject (String json);
+    String toJson (Quote object);
 
 }

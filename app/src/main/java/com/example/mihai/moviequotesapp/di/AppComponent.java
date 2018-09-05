@@ -3,6 +3,7 @@ package com.example.mihai.moviequotesapp.di;
 import android.app.Application;
 
 import com.example.mihai.moviequotesapp.MovieQuotesApp;
+import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
@@ -18,7 +19,12 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AndroidSupportInjectionModule.class,
         RepositoriesModule.class,
         ParsersModule.class,
-        HttpRequesterModule.class
+        HttpRequesterModule.class,
+        CreatePresenterModule.class,
+        QuoteServiceModule.class,
+        AsyncRunnerModule.class,
+        GsonModule.class
+
 })
 public interface AppComponent extends AndroidInjector<MovieQuotesApp> {
 

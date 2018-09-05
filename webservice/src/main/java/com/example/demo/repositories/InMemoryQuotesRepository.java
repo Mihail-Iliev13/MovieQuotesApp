@@ -8,9 +8,10 @@ import java.util.List;
 @Repository
 public class InMemoryQuotesRepository implements QuotesRepository {
 
-    private List<Quote> quotes= new ArrayList<>();
+    private List<Quote> quotes = new ArrayList<>();
 
     public InMemoryQuotesRepository()
+
     {
         quotes.add(new Quote("I'll be back","The Terminator","Terminator",5));
     }
@@ -35,14 +36,16 @@ public class InMemoryQuotesRepository implements QuotesRepository {
     }
 
     @Override
-    public void updateQuote(int id, Quote quote) {
-        Quote quote1 = getQuoteById(id);
-        int index = quotes.indexOf(quote1);
-        quotes.set(index,quote);
+    public void updateQuote(int id, Quote newQuote) {
+        Quote quoteToBeUpdated = getQuoteById(id);
+        newQuote.setId(quoteToBeUpdated.getId());
+        int index = quotes.indexOf(quoteToBeUpdated);
+        quotes.set(index, newQuote);
     }
 
     @Override
     public void deleteQuote(int id) {
-        quotes.remove(id);
+        Quote quoteTOBeDelelted = getQuoteById(id);
+        quotes.remove(quoteTOBeDelelted);
     }
 }

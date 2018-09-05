@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.contracts.GenerateQuoteContracts;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +37,7 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
 
     private GenerateQuoteContracts.Presenter mPresenter;
 
+    @Inject
     public GenerateQuoteFragment() {
         // Required empty public constructor
     }
@@ -65,6 +69,10 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     @Override
     public void showToast(Quote quote) {
 
+        getActivity().runOnUiThread(() -> {
+            Toast.makeText(getContext(), "Successfully added!", Toast.LENGTH_SHORT)
+                    .show();
+        });
     }
 
     @Override

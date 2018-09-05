@@ -1,5 +1,7 @@
 package com.example.mihai.moviequotesapp.models;
 
+import javax.inject.Inject;
+
 public class Quote {
 
     public int id;
@@ -8,6 +10,7 @@ public class Quote {
     public String quotedCharacter;
     public float rating;
 
+    @Inject
     public Quote() {
 
     }

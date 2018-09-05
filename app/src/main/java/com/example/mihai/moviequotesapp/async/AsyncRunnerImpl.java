@@ -19,6 +19,6 @@ public class AsyncRunnerImpl implements AsyncRunner {
                 action.run();
                 return null;
             }
-        };
+        }.execute(true);
     }
 }

@@ -16,9 +16,9 @@ import dagger.Provides;
 public class RepositoriesModule {
 
 @Provides
-  public Repository<Quote> quoteRepository (@Named("baseUrl") String baseUrl,
+  public Repository quoteRepository (@Named("baseServerUrl") String baseUrl,
                                             HttpRequester requester,
-                                            JsonParser<Quote> jsonParser){
-    return new HttpRepository<>(baseUrl, requester, jsonParser);
+                                            JsonParser jsonParser){
+    return new HttpRepository(baseUrl, requester, jsonParser);
 }
 }

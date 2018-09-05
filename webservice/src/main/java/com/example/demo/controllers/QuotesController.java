@@ -18,34 +18,35 @@ import java.util.List;
 @RequestMapping("api/quotes")
 public class QuotesController {
 private QuotesService service;
+
 @Autowired
-        public QuotesController(QuotesService service) {
-                this.service = service;
-        }
+public QuotesController(QuotesService service) {
+        this.service = service;
+}
 
-
-        @GetMapping("/all")
+@GetMapping("/all")
 public List<Quote> getQuotes()
 {
 return service.getQuotes();
 }
 
-        @GetMapping("id/{id}")
+@GetMapping("id/{id}")
 public Quote getQuoteById(@PathVariable int id){
 return service.getQuoteById(id);
         }
-        @PostMapping("/new")
-        public void CreateQuote(@RequestBody Quote newquote){
-service.createQuote(newquote);
-        }
-        @PutMapping("/{id}")
-        public void UpdateQuote( @PathVariable int id,@RequestBody Quote newQuote) {
-service.updateQuote(id,newQuote);
-         }
 
-        @DeleteMapping("/{id}")
-        void deleteEmployee(@PathVariable int id) {
+@PostMapping("/new")
+public void createQuote(@RequestBody Quote newQuote){
+        service.createQuote(newQuote);
+}
+
+@PutMapping("update/{id}")
+public void updateQuote( @PathVariable int id,@RequestBody Quote newQuote) {
+        service.updateQuote(id,newQuote);
+}
+
+@DeleteMapping("delete/{id}")
+public void deleteQuote(@PathVariable int id) {
 service.deleteQuote(id);
         }
-
 }

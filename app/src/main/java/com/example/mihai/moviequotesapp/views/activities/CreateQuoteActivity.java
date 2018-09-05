@@ -8,18 +8,25 @@ import com.example.mihai.moviequotesapp.views.contracts.GenerateQuoteContracts;
 import com.example.mihai.moviequotesapp.views.fragments.GenerateQuoteFragment;
 import com.example.mihai.moviequotesapp.views.presenters.CreateQuotePresenter;
 
-public class CreateQuoteActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    GenerateQuoteFragment mGenerateQuoteFragment;
-    GenerateQuoteContracts.Presenter mPresenter;
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class CreateQuoteActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    public GenerateQuoteFragment mGenerateQuoteFragment;
+
+    @Inject
+    public GenerateQuoteContracts.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quote);
 
-        mGenerateQuoteFragment = GenerateQuoteFragment.newInstance();
-        mPresenter = new CreateQuotePresenter();
+//        mGenerateQuoteFragment = GenerateQuoteFragment.newInstance();
+//        mPresenter = new CreateQuotePresenter();
         mPresenter.setView(mGenerateQuoteFragment);
         mGenerateQuoteFragment.setPresenter(mPresenter);
 

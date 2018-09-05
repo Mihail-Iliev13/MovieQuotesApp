@@ -1,6 +1,6 @@
 package com.example.mihai.moviequotesapp.di;
 
-import com.example.mihai.moviequotesapp.MainActivity;
+import com.example.mihai.moviequotesapp.views.activities.CreateQuoteActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -8,6 +8,6 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBindingModule {
     @ActivityScoped
-    @ContributesAndroidInjector
-    abstract MainActivity mainActivity();
+    @ContributesAndroidInjector(modules = CreateQuoteModule.class)
+    abstract CreateQuoteActivity createQuoteActivity();
 }

@@ -1,16 +1,19 @@
 package com.example.mihai.moviequotesapp.repositories.base;
 
+import com.example.mihai.moviequotesapp.models.Quote;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.Queue;
 
-public interface Repository<T> {
+public interface Repository {
 
-    List<T> getAll() throws IOException;
+    List<Quote> getAll() throws IOException;
 
-    void add(T object) throws IOException;
+    void add(Quote object) throws IOException;
 
-    void update(int id, T object) throws IOException;
+    void update(int id, Quote object) throws IOException;
 
-    void delete (int id, T object) throws IOException;
+    void delete (int id, Quote object) throws IOException;
 
 }

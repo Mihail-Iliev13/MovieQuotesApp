@@ -12,7 +12,7 @@ import dagger.Provides;
 public class ParsersModule {
 
 @Provides
-    public JsonParser<Quote> jsonParser (Class<Quote> klaas, Class<Quote[]> arrayKlaas, Gson gson) {
-    return new GsonParser<>(klaas, arrayKlaas, gson);
+    public JsonParser jsonParser ( Gson gson) {
+    return new GsonParser (gson);
 }
 }
