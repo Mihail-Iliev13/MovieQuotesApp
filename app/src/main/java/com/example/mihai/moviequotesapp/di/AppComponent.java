@@ -25,7 +25,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AsyncRunnerModule.class,
         GsonModule.class,
         UpdatePresenterModule.class,
-        CreatePresenterModule.class
+        CreatePresenterModule.class,
+        ValidatorModule.class
 })
 public interface AppComponent extends AndroidInjector<MovieQuotesApp> {
 
