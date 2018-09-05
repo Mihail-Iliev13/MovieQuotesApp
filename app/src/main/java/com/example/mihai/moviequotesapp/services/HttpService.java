@@ -1,5 +1,7 @@
 package com.example.mihai.moviequotesapp.services;
 
+import android.os.Build;
+
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.repositories.base.Repository;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
@@ -7,6 +9,7 @@ import com.example.mihai.moviequotesapp.validators.base.Validator;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HttpService implements QuoteService {
 
@@ -48,5 +51,17 @@ public class HttpService implements QuoteService {
     public void deleteQuote(Quote quote) throws IOException {
         int id = quote.getId();
         mRepository.delete(id, quote);
+    }
+
+    @Override
+    public List<Quote> getFilteredQuotes(String pattern) throws IOException {
+        String patternToLower = pattern.toLowerCase();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return getAll().stream()
+                    .filter(quote ->quote.quoteText.toLowerCase().contains(patternToLower))
+                    .collect(Collectors.toList());
+        }
+
     }
 }

@@ -15,4 +15,6 @@ public interface QuoteService {
 
     void deleteQuote(Quote quote) throws IOException;
 
+    List<Quote> getFilteredQuotes(String pattern) throws IOException;
+
 }
