@@ -14,6 +14,12 @@ public interface GenerateQuoteContracts {
         String getQuoteMovie();
         String getQuotedCharacter();
         float getRating();
+
+        void setQuoteBody(String quoteBody);
+        void setQuoteMovie(String movie);
+        void setQuotedCharacter(String quotedCharacter);
+        void setRating(float rating);
+        void makeButtonBlue();
     }
 
     interface Presenter {
@@ -21,6 +27,14 @@ public interface GenerateQuoteContracts {
         void generateQuote() throws IOException;
 
         void setView(View view);
+    }
+
+    interface UpdatePresenter extends Presenter {
+
+        void fillFields();
+
+        void setClickedQuote(Quote quote);
+
     }
 
 }

@@ -13,7 +13,6 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
 
    private GenerateQuoteContracts.View mView;
    private AsyncRunner mAsyncRunner;
-
    public QuoteService mService;
 
     @Inject

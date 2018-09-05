@@ -11,5 +11,5 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class CreateQuoteModule {
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract GenerateQuoteFragment superheroesListFragment();
+    abstract GenerateQuoteFragment createQuoteFragment();
 }

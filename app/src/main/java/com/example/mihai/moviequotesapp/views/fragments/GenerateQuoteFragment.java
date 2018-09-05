@@ -1,6 +1,8 @@
 package com.example.mihai.moviequotesapp.views.fragments;
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
+import com.example.mihai.moviequotesapp.views.activities.CreateQuoteActivity;
+import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.contracts.GenerateQuoteContracts;
 
 import java.io.IOException;
@@ -70,7 +74,7 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     public void showToast(Quote quote) {
 
         getActivity().runOnUiThread(() -> {
-            Toast.makeText(getContext(), "Successfully added!", Toast.LENGTH_SHORT)
+            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT)
                     .show();
         });
     }
@@ -95,8 +99,30 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
         return mQuoteRating.getRating();
     }
 
-
-    public static GenerateQuoteFragment newInstance() {
-        return new GenerateQuoteFragment();
+    @Override
+    public void setQuoteBody(String quoteBody) {
+        mQuoteText.setText(quoteBody);
     }
+
+    @Override
+    public void setQuoteMovie(String movie) {
+        mMovie.setText(movie);
+    }
+
+    @Override
+    public void setQuotedCharacter(String quotedCharacter) {
+        mQuotedCharacter.setText(quotedCharacter);
+    }
+
+    @Override
+    public void setRating(float rating) {
+        mQuoteRating.setRating(rating);
+    }
+
+    @Override
+    public void makeButtonBlue() {
+        mButton.setBackgroundColor(Color.BLUE);
+        mButton.setText("Update");
+    }
+
 }
