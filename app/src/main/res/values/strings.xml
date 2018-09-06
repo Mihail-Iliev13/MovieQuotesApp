@@ -7,4 +7,6 @@
     <string name="movie">Movie:</string>
     <string name="who_said_it">Who said it?</string>
     <string name="create">Create</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 </resources>

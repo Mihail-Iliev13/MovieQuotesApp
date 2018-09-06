@@ -16,4 +16,6 @@ public class Constants {
 
     public static final int LIST_ACTIVITY_ID = 2;
     public static final int CREATE_ACTIVITY_ID = 1;
+
+    public static final String SELECTED_QUOTE = "Selected";
 }

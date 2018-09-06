@@ -3,6 +3,8 @@ package com.example.mihai.moviequotesapp.views.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GenerateQuoteFragment extends Fragment implements GenerateQuoteContracts.View{
 
@@ -53,15 +56,7 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
 
         View view =  inflater.inflate(R.layout.fragment_create_quote, container, false);
         ButterKnife.bind(this, view);
-
-        mButton.setOnClickListener(button -> {
-            try {
-                mPresenter.generateQuote();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
+        mPresenter.changeRatingBarColor();
         return view;
     }
 
@@ -71,7 +66,7 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     }
 
     @Override
-    public void showToast(Quote quote) {
+    public void showToast() {
 
         getActivity().runOnUiThread(() -> {
             Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT)
@@ -120,9 +115,23 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     }
 
     @Override
-    public void makeButtonBlue() {
-        mButton.setBackgroundColor(Color.BLUE);
+    public void changeButton() {
         mButton.setText("Update");
+        mButton.setTextColor(Color.WHITE);
     }
 
+    @Override
+    public void setRatingBarColorToYellow() {
+        LayerDrawable stars = (LayerDrawable)mQuoteRating.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+    }
+
+    @OnClick(R.id.btn_button)
+    public void onClick(){
+        try {
+            mPresenter.generateQuote();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

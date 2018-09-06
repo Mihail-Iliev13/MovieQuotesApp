@@ -1,8 +1,11 @@
 package com.example.mihai.moviequotesapp.views.presenters;
 
+import android.content.Intent;
+
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
+import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
 
 import java.io.IOException;
@@ -59,5 +62,28 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
     @Override
     public void presentQuotesToView(List<Quote> quotes) {
         mView.showQuotes(quotes);
+    }
+
+    @Override
+    public void selectOnLong(Quote quote) {
+        mView.showDialogBox();
+    }
+
+    @Override
+    public void deleteQuote(Quote quote) {
+
+        mAsyncRunner.runInBackground(() -> {
+            try {
+                mService.deleteQuote(quote);
+                mView.showToast();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void navigateToUpdate() {
+        mView.goToUpdateActivity();
     }
 }

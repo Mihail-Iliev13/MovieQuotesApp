@@ -32,7 +32,7 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
         mAsyncRunner.runInBackground(() -> {
             try {
                 mService.createQuote(newQuote);
-                mView.showToast(newQuote);
+                mView.showToast();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -42,5 +42,10 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
     @Override
     public void setView(GenerateQuoteContracts.View view) {
        this.mView = view;
+    }
+
+    @Override
+    public void changeRatingBarColor() {
+        mView.setRatingBarColorToYellow();
     }
 }

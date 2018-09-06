@@ -9,7 +9,7 @@ public interface GenerateQuoteContracts {
     interface View {
 
         void setPresenter(Presenter mPresenter);
-        void showToast(Quote quote);
+        void showToast();
         String getQuoteBody();
         String getQuoteMovie();
         String getQuotedCharacter();
@@ -19,7 +19,8 @@ public interface GenerateQuoteContracts {
         void setQuoteMovie(String movie);
         void setQuotedCharacter(String quotedCharacter);
         void setRating(float rating);
-        void makeButtonBlue();
+        void changeButton();
+        void setRatingBarColorToYellow();
     }
 
     interface Presenter {
@@ -27,6 +28,8 @@ public interface GenerateQuoteContracts {
         void generateQuote() throws IOException;
 
         void setView(View view);
+
+        void changeRatingBarColor();
     }
 
     interface UpdatePresenter extends Presenter {

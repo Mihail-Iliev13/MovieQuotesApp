@@ -21,14 +21,13 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
     public ListQuotesFragment mQuotesListFragment;
 
     @Inject
-    DrawerFragment mDrawer;
+    public DrawerFragment mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_fragment_layout);
 
-        mDrawer = DrawerFragment.newInstance();
         mDrawer.setID(Constants.LIST_ACTIVITY_ID);
         setSupportActionBar(mDrawer.getToolbar());
 
@@ -51,4 +50,5 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
         super.onStart();
         mDrawer.setupDrawer();
     }
+
 }

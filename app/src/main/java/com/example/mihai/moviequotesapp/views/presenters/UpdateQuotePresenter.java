@@ -13,7 +13,7 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
 
     private GenerateQuoteContracts.View mView;
     private AsyncRunner mAsyncRunner;
-    public QuoteService mService;
+    private QuoteService mService;
     private Quote mClickedQuote;
 
     @Inject
@@ -24,6 +24,7 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
 
     @Override
     public void generateQuote() throws IOException {
+
         String quoteText = mView.getQuoteBody();
         String quoteMovie = mView.getQuoteMovie();
         String quotedCharacter = mView.getQuotedCharacter();
@@ -31,7 +32,15 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
 
         Quote updatedQuote = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
         updatedQuote.setId(mClickedQuote.getId());
-        mService.updateQuote(updatedQuote);
+
+        mAsyncRunner.runInBackground(() -> {
+            try {
+                mService.updateQuote(updatedQuote);
+                mView.showToast();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -40,12 +49,17 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     }
 
     @Override
+    public void changeRatingBarColor() {
+        mView.setRatingBarColorToYellow();
+    }
+
+    @Override
     public void fillFields() {
      mView.setQuoteBody(mClickedQuote.getText());
      mView.setQuoteMovie(mClickedQuote.getMovie());
      mView.setQuotedCharacter(mClickedQuote.getQuotedCharacter());
      mView.setRating(mClickedQuote.getRating());
-     mView.makeButtonBlue();
+     mView.changeButton();
     }
 
     @Override

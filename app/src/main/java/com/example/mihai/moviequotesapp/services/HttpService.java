@@ -42,7 +42,7 @@ public class HttpService implements QuoteService {
     @Override
     public void updateQuote(Quote quote) throws IOException {
 
-        if (mValidator.isValid(quote)) {
+        if (!mValidator.isValid(quote)) {
             throw new IllegalArgumentException("Quote is invalid!!!");
         } else {
             int id = quote.getId();

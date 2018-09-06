@@ -41,7 +41,7 @@ public class HttpRepository implements Repository {
 
     @Override
     public void update(int id, Quote object) throws IOException {
-        String url = mServerUrl + "/id/" + id;
+        String url = mServerUrl + "/update/" + id;
         String json = mJsonParser.toJson(object);
         mRequester.put(url, json);
     }
