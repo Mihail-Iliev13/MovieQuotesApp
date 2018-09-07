@@ -41,4 +41,8 @@ mView=view;
         });
 
     }
+    public void setQuoteId(int quoteId) {
+        mQuoteId = quoteId;
+    }
+
 }

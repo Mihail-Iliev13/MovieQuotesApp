@@ -16,4 +16,5 @@ public interface Repository {
 
     void delete (int id, Quote object) throws IOException;
 
+    Quote getById(int id) throws IOException;
 }

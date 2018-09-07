@@ -17,4 +17,5 @@ public interface QuoteService {
 
     List<Quote> getFilteredQuotes(String pattern) throws IOException;
 
+    Quote getDetailsById(int id) throws IOException;
 }
