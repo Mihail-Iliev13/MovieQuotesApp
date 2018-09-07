@@ -12,14 +12,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_quote_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/tv_secret_identity"
+            android:id="@+id/tv_quoted_character"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment"
