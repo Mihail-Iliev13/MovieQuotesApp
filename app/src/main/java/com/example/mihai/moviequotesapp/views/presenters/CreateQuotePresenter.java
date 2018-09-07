@@ -44,8 +44,4 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
        this.mView = view;
     }
 
-    @Override
-    public void changeRatingBarColor() {
-        mView.setRatingBarColorToYellow();
-    }
 }

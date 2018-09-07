@@ -68,10 +68,4 @@ public class HttpService implements QuoteService {
 
         return null;
     }
-
-    @Override
-    public Quote getDetailsById(int id) throws IOException {
-        return mRepository.getById(id);
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.example.mihai.moviequotesapp.async;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 
@@ -12,13 +13,16 @@ public class AsyncRunnerImpl implements AsyncRunner {
     }
 
     private static void run (final Runnable action) {
-        new AsyncTask<Boolean, Void, Void>() {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            new AsyncTask<Boolean, Void, Void>() {
+                @Override
+                protected Void doInBackground(Boolean... booleans) {
+                    action.run();
+                    return null;
+                }
+            }.execute(true);
+        }, 1000);
 
-            @Override
-            protected Void doInBackground(Boolean... booleans) {
-                action.run();
-                return null;
-            }
-        }.execute(true);
     }
 }

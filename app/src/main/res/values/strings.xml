@@ -4,9 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_your_quote_here">Write your quote here:</string>
-    <string name="movie">Movie:</string>
     <string name="who_said_it">Who said it?</string>
     <string name="create">Create</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
+    <string name="movie">Movie:</string>
+    <string name="quoted_character">Quoted Character:</string>
 </resources>

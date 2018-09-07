@@ -10,21 +10,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.QuotesAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
+import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
 import butterknife.OnTextChanged;
 
@@ -36,6 +40,9 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
 
     @BindView(R.id.et_search)
     EditText mSearch;
+
+    @BindView(R.id.pb_loading)
+    ProgressBar mProgressBar;
 
     @Inject
     public QuotesAdapter mAdapter;
@@ -60,7 +67,6 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
         ButterKnife.bind(this, view);
         mQuotesList.setAdapter(mAdapter);
 
-
         return view;
     }
 
@@ -80,6 +86,17 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
         getActivity().runOnUiThread(() -> {
             mAdapter.clear();
             mAdapter.addAll(quotes);
+        });
+    }
+
+    @Override
+    public void showEmptyQuotesList() {
+        getActivity().runOnUiThread(() -> {
+            Toast.makeText(
+                    getContext(),
+                    "Quote list is empty",
+                    Toast.LENGTH_LONG)
+                    .show();
         });
     }
 
@@ -105,18 +122,22 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
         delete.setOnClickListener(remove -> {
             mPresenter.deleteQuote(mSelectedQuote);
             mPresenter.loadQuotes();
-            mUpdateOrDeleteDialog.hide();
+            getActivity().runOnUiThread(() -> {
+                mUpdateOrDeleteDialog.hide();
+            });
         });
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.loadQuotes();
+    public void showToast() {
+        getActivity().runOnUiThread(() -> {
+            Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG)
+                    .show();
+        });
     }
 
     @Override
-    public void goToUpdateActivity() {
+    public void showUpdateActivity() {
         Intent intent = new Intent(getContext(), UpdateQuoteActivity.class);
         intent.putExtra(Constants.SELECTED_QUOTE, mSelectedQuote);
         startActivity(intent);
@@ -129,10 +150,34 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     }
 
     @Override
-    public void showToast() {
-        getActivity().runOnUiThread(() -> {
-            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT)
+    public void showQuoteDetails(Quote quote) {
+        Intent intent = new Intent(getContext(), QuoteDetailsActivity.class);
+        intent.putExtra(Constants.SELECTED_QUOTE, quote);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showError(IOException e) {
+        getActivity().runOnUiThread( () -> {
+            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG)
                     .show();
+        });
+    }
+
+    @Override
+    public void showLoading() {
+
+        getActivity().runOnUiThread(() -> {
+            mQuotesList.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.VISIBLE);
+        });
+    }
+
+    @Override
+    public void hideLoading() {
+        getActivity().runOnUiThread(() -> {
+            mQuotesList.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
         });
     }
 
@@ -147,5 +192,11 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
        mSelectedQuote = (Quote) mAdapter.getItem(position);
        mPresenter.selectOnLong(mSelectedQuote);
        return true;
+    }
+
+    @OnItemClick(R.id.lv_quotes)
+    public void onItemClick(int position) {
+        mSelectedQuote = (Quote) mAdapter.getItem(position);
+        mPresenter.selectQuote(mSelectedQuote);
     }
 }

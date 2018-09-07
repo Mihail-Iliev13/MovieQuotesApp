@@ -20,24 +20,18 @@ public interface GenerateQuoteContracts {
         void setQuotedCharacter(String quotedCharacter);
         void setRating(float rating);
         void changeButton();
-        void setRatingBarColorToYellow();
     }
 
     interface Presenter {
 
         void generateQuote() throws IOException;
-
         void setView(View view);
-
-        void changeRatingBarColor();
+//        void changeRatingBarColor();
     }
 
     interface UpdatePresenter extends Presenter {
-
         void fillFields();
-
         void setClickedQuote(Quote quote);
-
     }
 
 }

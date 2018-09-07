@@ -3,9 +3,10 @@ package com.example.mihai.moviequotesapp.di;
 import android.app.Application;
 
 import com.example.mihai.moviequotesapp.MovieQuotesApp;
-import com.example.mihai.moviequotesapp.views.presenters.ListAllQuotesPresenter;
-import com.example.mihai.moviequotesapp.views.presenters.UpdateQuotePresenter;
-import com.google.gson.Gson;
+import com.example.mihai.moviequotesapp.di.presentermodules.CreatePresenterModule;
+import com.example.mihai.moviequotesapp.di.presentermodules.ListPresenterModule;
+import com.example.mihai.moviequotesapp.di.presentermodules.QuoteDetailsPresenterModule;
+import com.example.mihai.moviequotesapp.di.presentermodules.UpdatePresenterModule;
 
 import javax.inject.Singleton;
 
@@ -30,6 +31,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ValidatorModule.class,
         ListPresenterModule.class,
         ViewsModule.class,
+        QuoteDetailsPresenterModule.class
 })
 public interface AppComponent extends AndroidInjector<MovieQuotesApp> {
 

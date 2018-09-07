@@ -56,7 +56,6 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
 
         View view =  inflater.inflate(R.layout.fragment_create_quote, container, false);
         ButterKnife.bind(this, view);
-        mPresenter.changeRatingBarColor();
         return view;
     }
 
@@ -117,14 +116,8 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     @Override
     public void changeButton() {
         mButton.setText("Update");
-        mButton.setTextColor(Color.WHITE);
     }
 
-    @Override
-    public void setRatingBarColorToYellow() {
-        LayerDrawable stars = (LayerDrawable)mQuoteRating.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-    }
 
     @OnClick(R.id.btn_button)
     public void onClick(){

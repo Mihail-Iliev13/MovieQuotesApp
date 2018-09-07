@@ -20,7 +20,8 @@
             android:gravity="center"
             android:textSize="35sp"
             android:paddingTop="10dp"
-            android:fontFamily="serif-monospace" />
+            android:textStyle="italic"
+            />
 
         <RatingBar
             android:paddingTop="10dp"

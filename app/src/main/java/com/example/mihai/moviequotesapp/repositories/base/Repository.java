@@ -15,6 +15,4 @@ public interface Repository {
     void update(int id, Quote object) throws IOException;
 
     void delete (int id, Quote object) throws IOException;
-
-    Quote getById(int id) throws IOException;
 }

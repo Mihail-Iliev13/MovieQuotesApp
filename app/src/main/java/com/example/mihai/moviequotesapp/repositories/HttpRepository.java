@@ -53,11 +53,4 @@ public class HttpRepository implements Repository {
         mRequester.delete(url, json);
     }
 
-    @Override
-    public Quote getById(int id) throws IOException {
-        String url = mServerUrl + "/" + id;
-        String json = mRequester.get(url);
-        return mJsonParser.fromJsonToObject(json);
-
-    }
 }

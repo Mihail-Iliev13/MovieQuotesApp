@@ -24,7 +24,6 @@ import butterknife.BindView;
 
 public class DrawerFragment extends Fragment {
 
-    @BindView(R.id.tb_menu)
     public android.support.v7.widget.Toolbar mToolbar;
 
     public static final long LIST_QUOTES_ID = 2;
@@ -36,16 +35,14 @@ public class DrawerFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DrawerFragment newInstance(){
-        return new DrawerFragment();
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_drawer, container, false);
 
+       View view =  inflater.inflate(R.layout.fragment_drawer, container, false);
+       mToolbar = view.findViewById(R.id.tb_menu);
+       return view;
     }
 
     public void setupDrawer() {
@@ -62,7 +59,7 @@ public class DrawerFragment extends Fragment {
 
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(getActivity())
-                .withHeaderBackground(R.color.md_blue_300)
+                .withHeaderBackground(R.color.primary)
                 .build();
 
         Drawer result = new DrawerBuilder()

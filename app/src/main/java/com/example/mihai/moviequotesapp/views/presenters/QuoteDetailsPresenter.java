@@ -8,41 +8,33 @@ import com.example.mihai.moviequotesapp.views.contracts.QuoteDetailsContracts;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 public class QuoteDetailsPresenter implements QuoteDetailsContracts.Presenter{
+
     private  QuoteService mQuotesService;
     private  AsyncRunner mAsyncRunner;
     private QuoteDetailsContracts.View mView;
-    private int mQuoteId;
+    private Quote mSelectedQuote;
 
-    public QuoteDetailsPresenter(
-            QuoteService quotesService,
-            AsyncRunner asyncRunner
-    ) {
+    @Inject
+    public QuoteDetailsPresenter( QuoteService quotesService, AsyncRunner asyncRunner) {
         mQuotesService = quotesService;
         mAsyncRunner = asyncRunner;
     }
 
+    @Override
+    public void setView(QuoteDetailsContracts.View view) {
+        mView = view;
+    }
 
     @Override
-    public void subscribe(QuoteDetailsContracts.View view) {
-mView=view;
+    public void setSelectedQuote(Quote quote) {
+        mSelectedQuote = quote;
     }
 
     @Override
     public void loadQuote() {
-        mAsyncRunner.runInBackground(() -> {
-            try {Quote quote  = mQuotesService.getDetailsById(mQuoteId);
-                mView.showQuote(quote);
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-
-        });
-
+        mView.showQuote(mSelectedQuote);
     }
-    public void setQuoteId(int quoteId) {
-        mQuoteId = quoteId;
-    }
-
 }

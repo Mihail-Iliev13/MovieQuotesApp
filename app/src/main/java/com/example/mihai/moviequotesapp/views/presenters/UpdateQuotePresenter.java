@@ -49,11 +49,6 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     }
 
     @Override
-    public void changeRatingBarColor() {
-        mView.setRatingBarColorToYellow();
-    }
-
-    @Override
     public void fillFields() {
      mView.setQuoteBody(mClickedQuote.getText());
      mView.setQuoteMovie(mClickedQuote.getMovie());

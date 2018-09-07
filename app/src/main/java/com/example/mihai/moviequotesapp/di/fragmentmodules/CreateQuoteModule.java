@@ -1,5 +1,6 @@
-package com.example.mihai.moviequotesapp.di;
+package com.example.mihai.moviequotesapp.di.fragmentmodules;
 
+import com.example.mihai.moviequotesapp.di.FragmentScoped;
 import com.example.mihai.moviequotesapp.views.fragments.GenerateQuoteFragment;
 
 import dagger.Binds;

@@ -16,21 +16,21 @@ public class QuoteValidator implements Validator {
     private boolean isQuoteBodyLengthValid(Quote quote) {
 
         int quoteBodyLength = quote.getText().length();
-        return quoteBodyLength >= Constants.MIN_QUOTE_BODY_LENGHT;
+        return quoteBodyLength >= Constants.MIN_QUOTE_BODY_LENGTH;
     }
 
     private boolean isMovieNameLengthValid(Quote quote){
         int movieNameLength = quote.getMovie().length();
 
-        return movieNameLength >= Constants.MIN_MOVIE_NAME_LENGHT
-                && movieNameLength <= Constants.MAX_MOVIE_NAME_LENGHT;
+        return movieNameLength >= Constants.MIN_MOVIE_NAME_LENGTH
+                && movieNameLength <= Constants.MAX_MOVIE_NAME_LENGTH;
     }
 
     private boolean isCharacterNameValid(Quote quote) {
         int characterNameLength = quote.getQuotedCharacter().length();
 
-        return characterNameLength >= Constants.MIN_CHARACTER_NAME_LENGHT
-                && characterNameLength <= Constants.MAX_CHARACTER_NAME_LENGHT;
+        return characterNameLength >= Constants.MIN_CHARACTER_NAME_LENGTH
+                && characterNameLength <= Constants.MAX_CHARACTER_NAME_LENGTH;
     }
 
     private boolean isRatingValid (Quote quote) {

@@ -1,11 +1,8 @@
 package com.example.mihai.moviequotesapp.views.presenters;
 
-import android.content.Intent;
-
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
-import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
 
 import java.io.IOException;
@@ -32,22 +29,32 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
 
     @Override
     public void loadQuotes() {
+        mView.showLoading();
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<Quote> quotes = mService.getAll();
-                presentQuotesToView(quotes);
+
+                    mView.showQuotes(quotes);
+
+                if (quotes.isEmpty()) {
+                    mView.showEmptyQuotesList();
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
+                mView.showError(e);
             }
+            mView.hideLoading();
         });
     }
 
     @Override
     public void filterQuotes(String pattern) {
+
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<Quote> quotes = mService.getFilteredQuotes(pattern);
-                presentQuotesToView(quotes);
+                mView.showQuotes(quotes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -55,13 +62,8 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
     }
 
     @Override
-    public void selectQuotes(Quote quote) {
-
-    }
-
-    @Override
-    public void presentQuotesToView(List<Quote> quotes) {
-        mView.showQuotes(quotes);
+    public void selectQuote(Quote quote) {
+        mView.showQuoteDetails(quote);
     }
 
     @Override
@@ -84,6 +86,6 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
 
     @Override
     public void navigateToUpdate() {
-        mView.goToUpdateActivity();
+        mView.showUpdateActivity();
     }
 }

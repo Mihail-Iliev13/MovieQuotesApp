@@ -1,4 +1,4 @@
-package com.example.mihai.moviequotesapp.di;
+package com.example.mihai.moviequotesapp.di.presentermodules;
 
 
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
