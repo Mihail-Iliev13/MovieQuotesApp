@@ -3,7 +3,7 @@ package com.example.mihai.moviequotesapp.views.contracts;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.fragments.QuoteDetailsFragment;
 
-public interface QuoteDetailsActivity {
+public interface QuoteDetailsContracts {
     interface View {
         void showQuote(Quote quote);
 
