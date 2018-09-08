@@ -4,13 +4,14 @@ import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.parsers.base.JsonParser;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class GsonParser implements JsonParser {
-
 
     private Gson mGson;
 
@@ -33,5 +34,10 @@ public class GsonParser implements JsonParser {
     @Override
     public String toJson(Quote object) {
         return mGson.toJson(object);
+    }
+
+    @Override
+    public HashMap<String, List<Quote>> fromJsonToMap(String json, Type typeOfHashMap) {
+        return mGson.fromJson(json, typeOfHashMap);
     }
 }

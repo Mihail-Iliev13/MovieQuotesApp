@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.views.activities.CreateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.activities.ListAllQuotesActivity;
+import com.example.mihai.moviequotesapp.views.activities.MovieListActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -20,14 +22,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-
 public class DrawerFragment extends Fragment {
 
-    public android.support.v7.widget.Toolbar mToolbar;
+    private android.support.v7.widget.Toolbar mToolbar;
 
-    public static final long LIST_QUOTES_ID = 2;
-    public static final long CREATE_QUOTE_ID = 3;
     private long mCurrentActivityID;
 
     @Inject
@@ -48,14 +46,19 @@ public class DrawerFragment extends Fragment {
     public void setupDrawer() {
 
         PrimaryDrawerItem createQuote = new PrimaryDrawerItem()
-                .withIdentifier(CREATE_QUOTE_ID)
+                .withIdentifier(Constants.CREATE_ACTIVITY_ID)
                 .withIcon(R.drawable.ic_create)
                 .withName("Create quote");
 
         PrimaryDrawerItem listQuotes = new PrimaryDrawerItem()
-                .withIdentifier(LIST_QUOTES_ID)
+                .withIdentifier(Constants.QUOTES_LIST_ACTIVITY_ID)
                 .withIcon(R.drawable.ic_format_quote)
                 .withName("All Quotes");
+
+        PrimaryDrawerItem moviesList = new PrimaryDrawerItem()
+                .withIdentifier(Constants.MOVIES_LIST_ACTIVITY_ID)
+                .withIcon(R.drawable.ic_local_movies)
+                .withName("All Movies");
 
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(getActivity())
@@ -69,7 +72,9 @@ public class DrawerFragment extends Fragment {
                 .addDrawerItems(
                         createQuote,
                         new DividerDrawerItem(),
-                        listQuotes
+                        listQuotes,
+                        new DividerDrawerItem(),
+                        moviesList
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     long identifier = drawerItem.getIdentifier();
@@ -92,14 +97,16 @@ public class DrawerFragment extends Fragment {
 
     private Intent getNextIntent(long identifier) {
 
-        if (identifier == LIST_QUOTES_ID) {
+        if (identifier == Constants.QUOTES_LIST_ACTIVITY_ID) {
             return new Intent(getContext(), ListAllQuotesActivity.class);
 
-        } else if (identifier == CREATE_QUOTE_ID){
+        } else if (identifier == Constants.CREATE_ACTIVITY_ID){
 
             return new Intent(getContext(), CreateQuoteActivity.class);
 
-        }  else {
+        }  else if (identifier == Constants.MOVIES_LIST_ACTIVITY_ID) {
+            return new Intent(getContext(), MovieListActivity.class);
+        } else {
             return null;
         }
     }

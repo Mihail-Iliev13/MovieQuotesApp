@@ -4,5 +4,5 @@ import com.example.mihai.moviequotesapp.models.Quote;
 
 public interface Validator {
 
-    boolean isValid(Quote quote);
+    boolean isValid(Quote quote) throws IllegalArgumentException;
 }

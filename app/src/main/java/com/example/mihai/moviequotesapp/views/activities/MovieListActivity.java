@@ -1,42 +1,40 @@
 package com.example.mihai.moviequotesapp.views.activities;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
-import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
+import com.example.mihai.moviequotesapp.views.contracts.MovieListContracts;
 import com.example.mihai.moviequotesapp.views.fragments.DrawerFragment;
-import com.example.mihai.moviequotesapp.views.fragments.ListQuotesFragment;
+import com.example.mihai.moviequotesapp.views.fragments.MovieListFragment;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class ListAllQuotesActivity extends DaggerAppCompatActivity {
+public class MovieListActivity extends DaggerAppCompatActivity {
 
     @Inject
-    public ListAllQuotesContracts.Presenter mPresenter;
+    DrawerFragment mDrawer;
 
     @Inject
-    public ListQuotesFragment mQuotesListFragment;
+    MovieListFragment mMovieList;
 
     @Inject
-    public DrawerFragment mDrawer;
+    MovieListContracts.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_fragment_layout);
-
-        mDrawer.setID(Constants.QUOTES_LIST_ACTIVITY_ID);
-        setSupportActionBar(mDrawer.getToolbar());
-
-        mPresenter.setView(mQuotesListFragment);
-        mQuotesListFragment.setPresenter(mPresenter);
+        mDrawer.setID(Constants.MOVIES_LIST_ACTIVITY_ID);
+        mPresenter.setView(mMovieList);
+        mMovieList.setPresenter(mPresenter);
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, mQuotesListFragment)
+                .replace(R.id.content, mMovieList)
                 .commit();
 
         getSupportFragmentManager()
@@ -50,5 +48,4 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
         super.onStart();
         mDrawer.setupDrawer();
     }
-
 }

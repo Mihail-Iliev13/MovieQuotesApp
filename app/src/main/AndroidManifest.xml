@@ -28,7 +28,8 @@
 
         <activity android:name=".views.activities.UpdateQuoteActivity" />
         <activity android:name=".views.activities.ListAllQuotesActivity" />
-        <activity android:name=".views.activities.QuoteDetailsActivity"></activity>
+        <activity android:name=".views.activities.QuoteDetailsActivity" />
+        <activity android:name=".views.activities.MovieListActivity"></activity>
     </application>
 
 </manifest>

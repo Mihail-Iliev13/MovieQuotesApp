@@ -23,7 +23,7 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     }
 
     @Override
-    public void generateQuote() throws IOException {
+    public void generateQuote(){
 
         String quoteText = mView.getQuoteBody();
         String quoteMovie = mView.getQuoteMovie();
@@ -38,6 +38,8 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
                 mService.updateQuote(updatedQuote);
                 mView.showToast();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e){
                 e.printStackTrace();
             }
         });

@@ -8,7 +8,9 @@ import com.example.mihai.moviequotesapp.services.base.QuoteService;
 import com.example.mihai.moviequotesapp.validators.base.Validator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,17 +32,17 @@ public class HttpService implements QuoteService {
     }
 
     @Override
-    public void createQuote(Quote quote) throws IOException {
+    public void createQuote(Quote quote) throws IOException, IllegalArgumentException {
 
         if (!mValidator.isValid(quote)) {
-            throw new IllegalArgumentException("Quote is invalid!!!");
+            throw new IllegalArgumentException("All fields must be filled!");
         } else {
             mRepository.add(quote);
         }
     }
 
     @Override
-    public void updateQuote(Quote quote) throws IOException {
+    public void updateQuote(Quote quote) throws IOException, IllegalArgumentException {
 
         if (!mValidator.isValid(quote)) {
             throw new IllegalArgumentException("Quote is invalid!!!");
@@ -68,4 +70,17 @@ public class HttpService implements QuoteService {
 
         return null;
     }
+
+    @Override
+    public List<String> getMoviesList() throws IOException {
+        List<String> movies = new ArrayList<>(getQuotesByMovie().keySet());
+        Collections.sort(movies);
+        return movies;
+    }
+
+    @Override
+    public HashMap<String, List<Quote>> getQuotesByMovie() throws IOException {
+        return mRepository.getAllMovies();
+    }
+
 }

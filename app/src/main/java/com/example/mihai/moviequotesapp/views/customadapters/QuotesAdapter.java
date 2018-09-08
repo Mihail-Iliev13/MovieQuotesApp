@@ -1,4 +1,4 @@
-package com.example.mihai.moviequotesapp;
+package com.example.mihai.moviequotesapp.views.customadapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,11 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
 
 import java.util.List;
 
-public class QuotesAdapter extends ArrayAdapter {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class QuotesAdapter extends ArrayAdapter<Quote> {
 
     private int mLayout;
 
@@ -52,20 +56,17 @@ public class QuotesAdapter extends ArrayAdapter {
     }
 
 
-    private class ViewHolder {
+     class ViewHolder {
+        @BindView(R.id.tv_quote_text)
+        TextView quoteText;
 
-        private TextView quoteText;
-        private RatingBar ratingBar;
+        @BindView(R.id.rb_quote_rating)
+        RatingBar ratingBar;
 
-        private ViewHolder () {
-
+        private ViewHolder (View view) {
+            ButterKnife.bind(this, view);
         }
 
-        private ViewHolder(View view) {
-            this.quoteText = view.findViewById(R.id.tv_quote_text);
-            this.ratingBar = view.findViewById(R.id.rb_quote_rating);
-
-        }
 
         private void showQuoteText (Quote quote) {
             String text = "\"" + quote.getText() + "\"";

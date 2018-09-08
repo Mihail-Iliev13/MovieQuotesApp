@@ -16,7 +16,7 @@ public interface ListAllQuotesContracts {
         void showUpdateActivity();
         void showToast();
         void showQuoteDetails(Quote quote);
-        void showError(IOException e);
+        void showError(Exception e);
         void showLoading();
         void hideLoading();
     }

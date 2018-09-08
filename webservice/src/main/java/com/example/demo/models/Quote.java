@@ -7,7 +7,6 @@ import javax.validation.constraints.Positive;
 
 public class Quote {
 
-    @Positive (message = "id should be positive number")
     private int id;
 
     @NotNull(message = "Quote text must not be null")

@@ -22,7 +22,8 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
     }
 
     @Override
-    public void generateQuote() throws IOException {
+    public void generateQuote(){
+
         String quoteText = mView.getQuoteBody();
         String quoteMovie = mView.getQuoteMovie();
         String quotedCharacter = mView.getQuotedCharacter();
@@ -35,6 +36,9 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
                 mView.showToast();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                mView.showError(e);
             }
         });
     }

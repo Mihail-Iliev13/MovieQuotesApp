@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -19,34 +21,39 @@ import java.util.List;
 public class QuotesController {
 private QuotesService service;
 
-@Autowired
-public QuotesController(QuotesService service) {
+    @Autowired
+    public QuotesController(QuotesService service) {
         this.service = service;
 }
 
-@GetMapping("/all")
-public List<Quote> getQuotes()
+    @GetMapping("/all")
+    public List<Quote> getQuotes()
 {
 return service.getQuotes();
 }
 
-@GetMapping("id/{id}")
-public Quote getQuoteById(@PathVariable int id){
+    @GetMapping("/movies")
+    public HashMap<String, List<Quote>> getMovies() {
+                return service.getMovies();
+}
+
+    @GetMapping("id/{id}")
+    public Quote getQuoteById(@PathVariable int id){
 return service.getQuoteById(id);
         }
 
-@PostMapping("/new")
-public void createQuote(@RequestBody Quote newQuote){
+    @PostMapping("/new")
+    public void createQuote(@Valid @RequestBody Quote newQuote){
         service.createQuote(newQuote);
 }
 
-@PutMapping("update/{id}")
-public void updateQuote( @PathVariable int id,@RequestBody Quote newQuote) {
+    @PutMapping("update/{id}")
+    public void updateQuote( @PathVariable int id,@Valid @RequestBody Quote newQuote) {
         service.updateQuote(id,newQuote);
-}
+    }
 
-@DeleteMapping("delete/{id}")
-public void deleteQuote(@PathVariable int id) {
-service.deleteQuote(id);
-        }
+    @DeleteMapping("delete/{id}")
+    public void deleteQuote(@PathVariable int id) {
+        service.deleteQuote(id);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.mihai.moviequotesapp.views.fragments;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.Constants;
-import com.example.mihai.moviequotesapp.QuotesAdapter;
+import com.example.mihai.moviequotesapp.views.customadapters.QuotesAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     ProgressBar mProgressBar;
 
     @Inject
-    public QuotesAdapter mAdapter;
+    QuotesAdapter mAdapter;
 
     private ListAllQuotesContracts.Presenter mPresenter;
 
@@ -60,8 +60,9 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_list_quotes, container, false);
 
         ButterKnife.bind(this, view);
@@ -157,7 +158,7 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     }
 
     @Override
-    public void showError(IOException e) {
+    public void showError(Exception e) {
         getActivity().runOnUiThread( () -> {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG)
                     .show();

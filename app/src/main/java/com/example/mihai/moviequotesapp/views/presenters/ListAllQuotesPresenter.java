@@ -34,7 +34,7 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
             try {
                 List<Quote> quotes = mService.getAll();
 
-                    mView.showQuotes(quotes);
+                mView.showQuotes(quotes);
 
                 if (quotes.isEmpty()) {
                     mView.showEmptyQuotesList();

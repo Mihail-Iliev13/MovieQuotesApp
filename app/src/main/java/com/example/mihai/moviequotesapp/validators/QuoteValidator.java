@@ -7,7 +7,7 @@ import com.example.mihai.moviequotesapp.validators.base.Validator;
 public class QuoteValidator implements Validator {
 
     @Override
-    public boolean isValid(Quote quote) {
+    public boolean isValid(Quote quote) throws IllegalArgumentException{
         return isQuoteBodyLengthValid(quote) && isMovieNameLengthValid(quote) &&
                 isCharacterNameValid(quote) && isRatingValid(quote);
 

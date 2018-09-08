@@ -118,6 +118,14 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
         mButton.setText("Update");
     }
 
+    @Override
+    public void showError(IllegalArgumentException e) {
+        getActivity().runOnUiThread( () -> {
+            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        });
+    }
+
 
     @OnClick(R.id.btn_button)
     public void onClick(){

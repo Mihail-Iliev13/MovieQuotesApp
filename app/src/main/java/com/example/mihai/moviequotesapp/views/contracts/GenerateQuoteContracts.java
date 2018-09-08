@@ -20,6 +20,7 @@ public interface GenerateQuoteContracts {
         void setQuotedCharacter(String quotedCharacter);
         void setRating(float rating);
         void changeButton();
+        void showError(IllegalArgumentException e);
     }
 
     interface Presenter {

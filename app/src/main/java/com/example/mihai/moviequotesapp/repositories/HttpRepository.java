@@ -4,9 +4,13 @@ import com.example.mihai.moviequotesapp.httprequesters.base.HttpRequester;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.parsers.base.JsonParser;
 import com.example.mihai.moviequotesapp.repositories.base.Repository;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,6 +55,14 @@ public class HttpRepository implements Repository {
         String url = mServerUrl + "/delete/" + id;
         String json = mJsonParser.toJson(object);
         mRequester.delete(url, json);
+    }
+
+    @Override
+    public HashMap<String, List<Quote>> getAllMovies() throws IOException {
+        String url = mServerUrl + "/movies";
+        String response = mRequester.get(url);
+        Type typeOfHashMap = new TypeToken<HashMap<String, List<Quote>>>() { }.getType();
+        return mJsonParser.fromJsonToMap(response, typeOfHashMap);
     }
 
 }
