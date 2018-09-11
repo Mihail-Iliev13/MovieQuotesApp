@@ -31,7 +31,6 @@ public class CreateQuoteActivity extends DaggerAppCompatActivity {
         mDrawer.setID(Constants.CREATE_ACTIVITY_ID);
         setSupportActionBar(mDrawer.getToolbar());
 
-        mPresenter.setView(mGenerateQuoteFragment);
         mGenerateQuoteFragment.setPresenter(mPresenter);
 
         getSupportFragmentManager()
@@ -49,5 +48,11 @@ public class CreateQuoteActivity extends DaggerAppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDrawer.setupDrawer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setView(mGenerateQuoteFragment);
     }
 }

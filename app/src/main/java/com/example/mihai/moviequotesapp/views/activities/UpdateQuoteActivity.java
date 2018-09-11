@@ -1,7 +1,6 @@
 package com.example.mihai.moviequotesapp.views.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mihai.moviequotesapp.Constants;
@@ -26,7 +25,7 @@ public class UpdateQuoteActivity extends DaggerAppCompatActivity {
     @Inject
     public GenerateQuoteContracts.UpdatePresenter mPresenter;
 
-    private Quote mCLickedQuote;
+    private Quote mSelectedQuote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +34,10 @@ public class UpdateQuoteActivity extends DaggerAppCompatActivity {
 
         setSupportActionBar(mDrawer.getToolbar());
 
-        mPresenter.setView(mGenerateQuoteFragment);
         mGenerateQuoteFragment.setPresenter(mPresenter);
 
         Intent intent = getIntent();
-        mCLickedQuote = (Quote) intent.getSerializableExtra(Constants.SELECTED_QUOTE);
-        mPresenter.setClickedQuote(mCLickedQuote);
+        mSelectedQuote = (Quote) intent.getSerializableExtra(Constants.SELECTED_QUOTE);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -57,6 +54,13 @@ public class UpdateQuoteActivity extends DaggerAppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDrawer.setupDrawer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setView(mGenerateQuoteFragment);
+        mPresenter.setClickedQuote(mSelectedQuote);
         mPresenter.fillFields();
     }
 }

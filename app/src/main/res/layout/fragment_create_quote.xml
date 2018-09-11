@@ -5,86 +5,93 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.GenerateQuoteFragment">
 
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_quote_text"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/write_your_quote_here"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/et_quote_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_below="@id/tv_quote_text" />
+            <TextView
+                android:id="@+id/tv_quote_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/write_your_quote_here"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_movie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_quote_text"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/movie"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_quote_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_quote_text"
+                android:paddingLeft="10dp" />
 
-        <EditText
-            android:id="@+id/et_movie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_below="@id/tv_movie" />
+            <TextView
+                android:id="@+id/tv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_quote_text"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/movie"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_character"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_movie"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/who_said_it"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_movie"
+                android:paddingLeft="10dp" />
 
-        <EditText
-            android:id="@+id/et_character"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_below="@+id/tv_character" />
+            <TextView
+                android:id="@+id/tv_character"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_movie"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/who_said_it"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/rb_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_character"
-            android:layout_centerHorizontal="true"
-            android:numStars="5"
-            android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_character"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_character"
+                android:layout_marginBottom="20dp"
+                android:paddingLeft="10dp" />
 
-        <Button
-            android:id="@+id/btn_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rb_rating"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimary"
-            android:padding="15dp"
-            android:paddingTop="50dp"
-            android:text="@string/create"
-            android:textColor="@color/md_white_1000"
-            android:textSize="35sp"
-            android:textStyle="bold" />
+            <RatingBar
+                android:id="@+id/rb_rating"
+                android:layout_below="@+id/et_character"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="35dp"
+                android:layout_centerHorizontal="true"
+                android:numStars="5"
+                android:paddingTop="10dp"
+                android:theme="@style/RatingBar" />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btn_button"
+                android:layout_below="@id/rb_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimary"
+                android:padding="15dp"
+                android:text="@string/create"
+                android:textColor="@color/md_white_1000"
+                android:textSize="35sp"
+                android:textStyle="bold" />
 
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

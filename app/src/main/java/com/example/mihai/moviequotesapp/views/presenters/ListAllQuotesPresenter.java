@@ -57,6 +57,7 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
                 mView.showQuotes(quotes);
             } catch (IOException e) {
                 e.printStackTrace();
+                mView.showError(e);
             }
         });
     }

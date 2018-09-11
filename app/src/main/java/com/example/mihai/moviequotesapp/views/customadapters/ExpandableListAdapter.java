@@ -13,6 +13,7 @@ import com.example.mihai.moviequotesapp.models.Quote;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -20,7 +21,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String, List<Quote>> listHashMap;
+    private Map<String, List<Quote>> listHashMap;
 
    @Inject
    public ExpandableListAdapter(Context context, List<String> listDataHeader,
@@ -34,7 +35,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.listDataHeader = listDataHeader;
     }
 
-    public void setListHashMap(HashMap<String, List<Quote>> listHashMap) {
+    public void setListHashMap(Map<String, List<Quote>> listHashMap) {
         this.listHashMap = listHashMap;
     }
 

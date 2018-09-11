@@ -74,26 +74,6 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     }
 
     @Override
-    public String getQuoteBody() {
-        return mQuoteText.getText().toString();
-    }
-
-    @Override
-    public String getQuoteMovie() {
-        return mMovie.getText().toString();
-    }
-
-    @Override
-    public String getQuotedCharacter() {
-        return mQuotedCharacter.getText().toString();
-    }
-
-    @Override
-    public float getRating() {
-        return mQuoteRating.getRating();
-    }
-
-    @Override
     public void setQuoteBody(String quoteBody) {
         mQuoteText.setText(quoteBody);
     }
@@ -130,7 +110,11 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     @OnClick(R.id.btn_button)
     public void onClick(){
         try {
-            mPresenter.generateQuote();
+            String quoteText = mQuoteText.getText().toString();
+            String quoteMovie = mMovie.getText().toString();
+            String quotedCharacter = mQuotedCharacter.getText().toString();
+            float rating = mQuoteRating.getRating();
+            mPresenter.generateQuote(quoteText, quoteMovie, quotedCharacter, rating);
         } catch (IOException e) {
             e.printStackTrace();
         }

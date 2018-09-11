@@ -10,11 +10,6 @@ public interface GenerateQuoteContracts {
 
         void setPresenter(Presenter mPresenter);
         void showToast();
-        String getQuoteBody();
-        String getQuoteMovie();
-        String getQuotedCharacter();
-        float getRating();
-
         void setQuoteBody(String quoteBody);
         void setQuoteMovie(String movie);
         void setQuotedCharacter(String quotedCharacter);
@@ -25,9 +20,10 @@ public interface GenerateQuoteContracts {
 
     interface Presenter {
 
-        void generateQuote() throws IOException;
+        void generateQuote(String quoteText, String quoteMovie, String quotedCharacter,
+                           float quoteRating) throws IOException;
+
         void setView(View view);
-//        void changeRatingBarColor();
     }
 
     interface UpdatePresenter extends Presenter {

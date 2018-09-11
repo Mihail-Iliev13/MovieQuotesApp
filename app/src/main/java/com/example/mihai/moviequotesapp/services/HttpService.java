@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HttpService implements QuoteService {
@@ -61,26 +62,45 @@ public class HttpService implements QuoteService {
     @Override
     public List<Quote> getFilteredQuotes(String pattern) throws IOException {
         String patternToLower = pattern.toLowerCase();
+        List<Quote> quotes = getAll();
+        List<Quote> filteredQuotes = new ArrayList<>();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return getAll().stream()
-                    .filter(quote -> quote.getText().toLowerCase().contains(patternToLower))
-                    .collect(Collectors.toList());
+        for (Quote quote: quotes) {
+            if (quote.getText().toLowerCase().contains(patternToLower)) {
+                filteredQuotes.add(quote);
+            }
         }
-
-        return null;
+        return filteredQuotes;
     }
 
     @Override
     public List<String> getMoviesList() throws IOException {
-        List<String> movies = new ArrayList<>(getQuotesByMovie().keySet());
+        List<Quote> allQuotes = mRepository.getAll();
+        List<String> movies = new ArrayList<>();
+
+        for (Quote quote : allQuotes) {
+            movies.add(quote.getMovie());
+        }
+
         Collections.sort(movies);
         return movies;
     }
 
     @Override
-    public HashMap<String, List<Quote>> getQuotesByMovie() throws IOException {
-        return mRepository.getAllMovies();
+    public Map<String, List<Quote>> getQuotesByMovie() throws IOException {
+        List<Quote> allQuotes =  mRepository.getAll();
+        Map<String, List<Quote>> allQuotesByMovies = new HashMap<>();
+
+        for (Quote quote: allQuotes) {
+
+            if (!allQuotesByMovies.containsKey(quote.movie)) {
+                allQuotesByMovies.put(quote.getMovie(), new ArrayList<>());
+            }
+
+            allQuotesByMovies.get(quote.getMovie()).add(quote);
+        }
+
+        return allQuotesByMovies;
     }
 
 }

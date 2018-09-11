@@ -22,12 +22,7 @@ public class CreateQuotePresenter implements GenerateQuoteContracts.Presenter {
     }
 
     @Override
-    public void generateQuote(){
-
-        String quoteText = mView.getQuoteBody();
-        String quoteMovie = mView.getQuoteMovie();
-        String quotedCharacter = mView.getQuotedCharacter();
-        float quoteRating = mView.getRating();
+    public void generateQuote(String quoteText, String quoteMovie, String quotedCharacter, float quoteRating){
 
         Quote newQuote = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
         mAsyncRunner.runInBackground(() -> {

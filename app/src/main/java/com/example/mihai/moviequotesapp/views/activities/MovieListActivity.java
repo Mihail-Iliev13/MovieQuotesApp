@@ -28,8 +28,8 @@ public class MovieListActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_fragment_layout);
+
         mDrawer.setID(Constants.MOVIES_LIST_ACTIVITY_ID);
-        mPresenter.setView(mMovieList);
         mMovieList.setPresenter(mPresenter);
 
         getSupportFragmentManager()
@@ -47,5 +47,11 @@ public class MovieListActivity extends DaggerAppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDrawer.setupDrawer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setView(mMovieList);
     }
 }

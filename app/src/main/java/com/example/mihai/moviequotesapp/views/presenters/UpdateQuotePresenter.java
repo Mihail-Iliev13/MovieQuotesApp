@@ -23,24 +23,17 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     }
 
     @Override
-    public void generateQuote(){
-
-        String quoteText = mView.getQuoteBody();
-        String quoteMovie = mView.getQuoteMovie();
-        String quotedCharacter = mView.getQuotedCharacter();
-        float quoteRating = mView.getRating();
-
-        Quote updatedQuote = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
-        updatedQuote.setId(mClickedQuote.getId());
-
+    public void generateQuote(String quoteText, String quoteMovie, String quotedCharacter, float quoteRating) throws IOException {
+        Quote quoteToBeUpdated = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
         mAsyncRunner.runInBackground(() -> {
             try {
-                mService.updateQuote(updatedQuote);
+                mService.updateQuote(quoteToBeUpdated);
                 mView.showToast();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
+                mView.showError(e);
             }
         });
     }

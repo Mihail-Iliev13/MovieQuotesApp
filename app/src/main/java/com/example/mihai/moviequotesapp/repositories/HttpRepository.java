@@ -31,38 +31,29 @@ public class HttpRepository implements Repository {
 
     @Override
     public List<Quote> getAll() throws IOException {
-        String url = mServerUrl + "/all";
+        String url = mServerUrl;
         String response = mRequester.get(url);
         return mJsonParser.fromJsonToList(response);
     }
 
     @Override
     public void add(Quote object) throws IOException {
-        String url = mServerUrl + "/new";
+        String url = mServerUrl;
         String json = mJsonParser.toJson(object);
         mRequester.post(url, json);
     }
 
     @Override
     public void update(int id, Quote object) throws IOException {
-        String url = mServerUrl + "/update/" + id;
+        String url = mServerUrl + "/" + id;
         String json = mJsonParser.toJson(object);
         mRequester.put(url, json);
     }
 
     @Override
     public void delete(int id, Quote object) throws IOException {
-        String url = mServerUrl + "/delete/" + id;
+        String url = mServerUrl + "/" + id;
         String json = mJsonParser.toJson(object);
         mRequester.delete(url, json);
     }
-
-    @Override
-    public HashMap<String, List<Quote>> getAllMovies() throws IOException {
-        String url = mServerUrl + "/movies";
-        String response = mRequester.get(url);
-        Type typeOfHashMap = new TypeToken<HashMap<String, List<Quote>>>() { }.getType();
-        return mJsonParser.fromJsonToMap(response, typeOfHashMap);
-    }
-
 }

@@ -38,6 +38,8 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     @BindView(R.id.lv_quotes)
     ListView mQuotesList;
 
+    private boolean isFirst = true;
+
     @BindView(R.id.et_search)
     EditText mSearch;
 
@@ -85,8 +87,15 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     @Override
     public void showQuotes(List<Quote> quotes) {
         getActivity().runOnUiThread(() -> {
-            mAdapter.clear();
-            mAdapter.addAll(quotes);
+            if (isFirst) {
+                mAdapter.clear();
+                mAdapter.addAll(quotes);
+                isFirst = false;
+            } else {
+                mAdapter.clear();
+                mAdapter.addAll(quotes);
+            }
+
         });
     }
 

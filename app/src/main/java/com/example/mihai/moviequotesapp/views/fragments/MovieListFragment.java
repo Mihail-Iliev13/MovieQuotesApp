@@ -18,8 +18,8 @@ import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.contracts.MovieListContracts;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,6 +51,7 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_movie_list, container, false);
         ButterKnife.bind(this, view);
+
         mMovieList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
@@ -76,7 +77,7 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
     }
 
     @Override
-    public void showMovieList(List<String> movies, HashMap<String, List<Quote>> quotes) {
+    public void showMovieList(List<String> movies, Map<String, List<Quote>> quotes) {
            getActivity().runOnUiThread(() -> {
                mExListAdapter.setListDataHeader(movies);
                mExListAdapter.setListHashMap(quotes);

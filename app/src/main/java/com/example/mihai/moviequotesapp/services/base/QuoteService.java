@@ -5,6 +5,7 @@ import com.example.mihai.moviequotesapp.models.Quote;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface QuoteService {
 
@@ -20,6 +21,6 @@ public interface QuoteService {
 
     List<String> getMoviesList() throws IOException;
 
-    HashMap<String,List<Quote>> getQuotesByMovie() throws IOException;
+    Map<String,List<Quote>> getQuotesByMovie() throws IOException;
 
 }

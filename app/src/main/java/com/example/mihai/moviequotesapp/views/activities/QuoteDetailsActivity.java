@@ -25,6 +25,8 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
     @Inject
     public QuoteDetailsPresenter mQuoteDetailsPresenter;
 
+    private Quote mSelectedQuote;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,10 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
 
 
         Intent intent = getIntent();
-        Quote quote = (Quote) intent.getSerializableExtra(Constants.SELECTED_QUOTE);
+        mSelectedQuote = (Quote) intent.getSerializableExtra(Constants.SELECTED_QUOTE);
 
-        mQuoteDetailsPresenter.setSelectedQuote(quote);
-        mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
         mQuoteDetailsFragment.setPresenter(mQuoteDetailsPresenter);
+
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -50,4 +51,10 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
                 .commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
+        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
+    }
 }

@@ -17,5 +17,4 @@ public interface Repository {
 
     void delete (int id, Quote object) throws IOException;
 
-    HashMap<String,List<Quote>> getAllMovies() throws IOException;
 }

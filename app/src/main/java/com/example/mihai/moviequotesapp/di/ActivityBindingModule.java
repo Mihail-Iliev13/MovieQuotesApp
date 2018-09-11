@@ -15,6 +15,7 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBindingModule {
+
     @ActivityScoped()
     @ContributesAndroidInjector(modules = CreateQuoteModule.class)
     abstract CreateQuoteActivity createQuoteActivity();

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,7 +36,7 @@ public class MovieListPresenter implements MovieListContracts.Presenter {
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<String>  headers = mService.getMoviesList();
-                HashMap<String, List<Quote>> quotes = mService.getQuotesByMovie();
+                Map<String, List<Quote>> quotes = mService.getQuotesByMovie();
                 mView.showMovieList(headers, quotes);
 
                 if (headers.isEmpty()) {
