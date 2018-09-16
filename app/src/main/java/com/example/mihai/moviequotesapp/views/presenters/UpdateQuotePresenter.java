@@ -25,6 +25,7 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     @Override
     public void generateQuote(String quoteText, String quoteMovie, String quotedCharacter, float quoteRating) throws IOException {
         Quote quoteToBeUpdated = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
+        quoteToBeUpdated.setId(mClickedQuote.getId());
         mAsyncRunner.runInBackground(() -> {
             try {
                 mService.updateQuote(quoteToBeUpdated);

@@ -69,6 +69,7 @@ public class DrawerFragment extends Fragment {
                 .withActivity(getActivity())
                 .withToolbar(mToolbar)
                 .withAccountHeader(accountHeader)
+                .withSelectedItem(mCurrentActivityID)
                 .addDrawerItems(
                         createQuote,
                         new DividerDrawerItem(),

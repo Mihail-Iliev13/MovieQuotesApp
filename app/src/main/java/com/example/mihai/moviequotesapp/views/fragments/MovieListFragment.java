@@ -1,17 +1,21 @@
 package com.example.mihai.moviequotesapp.views.fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.Constants;
+import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.customadapters.ExpandableListAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
@@ -38,6 +42,7 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
     ExpandableListAdapter mExListAdapter;
 
     private MovieListContracts.Presenter mPresenter;
+    private AlertDialog mUpdateOrDeleteDialog;
 
     @Inject
     public MovieListFragment() {
@@ -52,17 +57,55 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
         View view =  inflater.inflate(R.layout.fragment_movie_list, container, false);
         ButterKnife.bind(this, view);
 
-        mMovieList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
-                                        int childPosition, long id) {
+        mMovieList.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
+            Quote selectedQuote = (Quote) mExListAdapter.getChild(groupPosition, childPosition);
+            mPresenter.selectQuote(selectedQuote);
+            return true;
+        });
+
+        mMovieList.setOnItemLongClickListener((parent, view1, position, id) -> {
+
+            if (ExpandableListView.getPackedPositionType(id)
+                    == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+
+                int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                int childPosition = ExpandableListView.getPackedPositionChild(id);
                 Quote selectedQuote = (Quote) mExListAdapter.getChild(groupPosition, childPosition);
-                mPresenter.selectQuote(selectedQuote);
+                showDialogBox(selectedQuote);
+
                 return true;
             }
+
+            return false;
         });
         return view;
+    }
+
+    private void showDialogBox(Quote quote) {
+        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete_dialog, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogBox);
+
+        mUpdateOrDeleteDialog = builder.create();
+        mUpdateOrDeleteDialog.show();
+
+        Button update = dialogBox.findViewById(R.id.btn_update);
+
+        update.setOnClickListener(updateButton -> {
+            mPresenter.navigateToUpdate(quote);
+        });
+
+        Button delete = dialogBox.findViewById(R.id.btn_delete);
+
+        delete.setOnClickListener(remove -> {
+            mPresenter.deleteQuote(quote);
+            mPresenter.loadMovies();
+            getActivity().runOnUiThread(() -> {
+                mUpdateOrDeleteDialog.hide();
+            });
+        });
     }
 
     @Override
@@ -124,6 +167,18 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
         getActivity().runOnUiThread( () -> {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG)
                     .show();
+        });
+    }
+
+    @Override
+    public void showUpdateActivity(Quote quote) {
+        Intent intent = new Intent(getContext(), UpdateQuoteActivity.class);
+        intent.putExtra(Constants.SELECTED_QUOTE, quote);
+        startActivity(intent);
+
+        getActivity().runOnUiThread(() -> {
+            mUpdateOrDeleteDialog.hide();
+            mPresenter.loadMovies();
         });
     }
 }

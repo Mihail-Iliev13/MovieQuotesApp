@@ -55,4 +55,20 @@ public class MovieListPresenter implements MovieListContracts.Presenter {
         mView.showQuoteDetails(quote);
     }
 
+    @Override
+    public void navigateToUpdate(Quote quote) {
+        mView.showUpdateActivity(quote);
+    }
+
+    @Override
+    public void deleteQuote(Quote quote) {
+        mAsyncRunner.runInBackground(() -> {
+            try {
+                mService.deleteQuote(quote);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

@@ -1,7 +1,5 @@
 package com.example.mihai.moviequotesapp.services;
 
-import android.os.Build;
-
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.repositories.base.Repository;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
@@ -11,9 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 public class HttpService implements QuoteService {
 
@@ -76,14 +75,15 @@ public class HttpService implements QuoteService {
     @Override
     public List<String> getMoviesList() throws IOException {
         List<Quote> allQuotes = mRepository.getAll();
-        List<String> movies = new ArrayList<>();
+        Set<String> moviesSet = new HashSet<>();
 
         for (Quote quote : allQuotes) {
-            movies.add(quote.getMovie());
+            moviesSet.add(quote.getMovie());
         }
 
-        Collections.sort(movies);
-        return movies;
+        List<String> moviesList = new ArrayList<>(moviesSet);
+        Collections.sort(moviesList);
+        return moviesList;
     }
 
     @Override
@@ -102,5 +102,4 @@ public class HttpService implements QuoteService {
 
         return allQuotesByMovies;
     }
-
 }

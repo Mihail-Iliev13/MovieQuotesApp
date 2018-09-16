@@ -15,13 +15,14 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class ListAllQuotesActivity extends DaggerAppCompatActivity {
 
     @Inject
-    public ListAllQuotesContracts.Presenter mPresenter;
+    public ListAllQuotesContracts.Presenter mListPresenter;
 
     @Inject
     public ListQuotesFragment mQuotesListFragment;
 
     @Inject
     public DrawerFragment mDrawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
         mDrawer.setID(Constants.QUOTES_LIST_ACTIVITY_ID);
         setSupportActionBar(mDrawer.getToolbar());
 
-        mQuotesListFragment.setPresenter(mPresenter);
+        mQuotesListFragment.setPresenter(mListPresenter);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -42,6 +43,7 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.drawer, mDrawer)
                 .commit();
+
     }
 
     @Override
@@ -53,6 +55,6 @@ public class ListAllQuotesActivity extends DaggerAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.setView(mQuotesListFragment);
+        mListPresenter.setView(mQuotesListFragment);
     }
 }

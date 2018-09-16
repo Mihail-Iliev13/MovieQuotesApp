@@ -14,7 +14,7 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
 
     private QuoteService mService;
     private AsyncRunner mAsyncRunner;
-    private ListAllQuotesContracts.View mView;
+    private ListAllQuotesContracts.View mListView;
 
     @Inject
     public ListAllQuotesPresenter(QuoteService service, AsyncRunner asyncRunner){
@@ -24,27 +24,27 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
 
     @Override
     public void setView(ListAllQuotesContracts.View view) {
-        mView = view;
+        mListView = view;
     }
 
     @Override
     public void loadQuotes() {
-        mView.showLoading();
+        mListView.showLoading();
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<Quote> quotes = mService.getAll();
 
-                mView.showQuotes(quotes);
+                mListView.showQuotes(quotes);
 
                 if (quotes.isEmpty()) {
-                    mView.showEmptyQuotesList();
+                    mListView.showEmptyQuotesList();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                mView.showError(e);
+                mListView.showError(e);
             }
-            mView.hideLoading();
+            mListView.hideLoading();
         });
     }
 
@@ -54,22 +54,22 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<Quote> quotes = mService.getFilteredQuotes(pattern);
-                mView.showQuotes(quotes);
+                mListView.showQuotes(quotes);
             } catch (IOException e) {
                 e.printStackTrace();
-                mView.showError(e);
+                mListView.showError(e);
             }
         });
     }
 
     @Override
     public void selectQuote(Quote quote) {
-        mView.showQuoteDetails(quote);
+        mListView.showQuoteDetails(quote);
     }
 
     @Override
     public void selectOnLong(Quote quote) {
-        mView.showDialogBox();
+        mListView.showDialogBox();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
         mAsyncRunner.runInBackground(() -> {
             try {
                 mService.deleteQuote(quote);
-                mView.showToast();
+                mListView.showToast();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -87,6 +87,6 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
 
     @Override
     public void navigateToUpdate() {
-        mView.showUpdateActivity();
+        mListView.showUpdateActivity();
     }
 }

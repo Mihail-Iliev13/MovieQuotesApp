@@ -15,11 +15,14 @@ public interface MovieListContracts {
         void showLoading();
         void hideLoading();
         void showError(Exception e);
+        void showUpdateActivity(Quote quote);
     }
 
     interface Presenter{
         void setView(MovieListContracts.View view);
         void loadMovies();
         void selectQuote(Quote quote);
+        void navigateToUpdate(Quote quote);
+        void deleteQuote(Quote quote);
     }
 }

@@ -21,7 +21,6 @@ public class InMemoryQuotesRepository implements QuotesRepository {
 
     @Override
     public void createQuote(Quote quote) {
-
         quotes.add(quote);
     }
 
