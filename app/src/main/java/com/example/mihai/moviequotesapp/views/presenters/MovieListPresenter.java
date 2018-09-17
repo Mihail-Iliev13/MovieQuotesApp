@@ -71,4 +71,21 @@ public class MovieListPresenter implements MovieListContracts.Presenter {
         });
     }
 
+    @Override
+    public void filterQuotes(String pattern) {
+        mAsyncRunner.runInBackground(() -> {
+            try {
+                List<String> headers = mService.getFilteredMoviesList(pattern);
+                Map<String, List<Quote>> quotes = mService.getFilteredQuotesByMovie(headers);
+                mView.showMovieList(headers, quotes);
+                if (headers.isEmpty()) {
+                    mView.showEmptyMovieList();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

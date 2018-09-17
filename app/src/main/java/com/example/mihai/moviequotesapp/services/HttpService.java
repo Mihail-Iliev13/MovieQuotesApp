@@ -102,4 +102,40 @@ public class HttpService implements QuoteService {
 
         return allQuotesByMovies;
     }
+
+    @Override
+    public List<String> getFilteredMoviesList(String pattern) throws IOException {
+        List<Quote> allQuotes = mRepository.getAll();
+        Set<String> moviesSet = new HashSet<>();
+
+        for (Quote quote : allQuotes) {
+            if (quote.getMovie().contains(pattern)) {
+                moviesSet.add(quote.getMovie());
+            }
+        }
+
+        List<String> moviesList = new ArrayList<>(moviesSet);
+        Collections.sort(moviesList);
+        return moviesList;    }
+
+    @Override
+    public Map<String, List<Quote>> getFilteredQuotesByMovie(List<String> quoteList) throws IOException {
+        List<Quote> allQuotes = mRepository.getAll();
+        Map<String, List<Quote>> allQuotesByMovies = new HashMap<>();
+
+        for (Quote quote: allQuotes) {
+
+            if (!quoteList.contains(quote.getMovie())) {
+                continue;
+            }
+
+            if (!allQuotesByMovies.containsKey(quote.movie)) {
+                allQuotesByMovies.put(quote.getMovie(), new ArrayList<>());
+            }
+
+            allQuotesByMovies.get(quote.getMovie()).add(quote);
+        }
+
+        return allQuotesByMovies;
+    }
 }

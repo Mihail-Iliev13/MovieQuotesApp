@@ -24,5 +24,6 @@ public interface MovieListContracts {
         void selectQuote(Quote quote);
         void navigateToUpdate(Quote quote);
         void deleteQuote(Quote quote);
+        void filterQuotes(String pattern);
     }
 }

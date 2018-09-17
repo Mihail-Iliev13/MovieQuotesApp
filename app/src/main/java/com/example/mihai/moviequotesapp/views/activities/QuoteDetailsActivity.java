@@ -6,8 +6,11 @@ import android.os.Bundle;
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
+import com.example.mihai.moviequotesapp.views.contracts.QuoteDetailsContracts;
+import com.example.mihai.moviequotesapp.views.contracts.UpdateDeleteButtonContracts;
 import com.example.mihai.moviequotesapp.views.fragments.DrawerFragment;
 import com.example.mihai.moviequotesapp.views.fragments.QuoteDetailsFragment;
+import com.example.mihai.moviequotesapp.views.fragments.UpdateDeleteButtonsFragment;
 import com.example.mihai.moviequotesapp.views.presenters.QuoteDetailsPresenter;
 
 import javax.inject.Inject;
@@ -23,7 +26,13 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
     public QuoteDetailsFragment mQuoteDetailsFragment;
 
     @Inject
-    public QuoteDetailsPresenter mQuoteDetailsPresenter;
+    public UpdateDeleteButtonsFragment mUpdateDeleteButtonsFragment;
+
+    @Inject
+    public QuoteDetailsContracts.Presenter mQuoteDetailsPresenter;
+
+    @Inject
+    public UpdateDeleteButtonContracts.Presenter mUpdateDeletePresenter;
 
     private Quote mSelectedQuote;
 
@@ -31,14 +40,14 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_fragment_layout);
+        setContentView(R.layout.activity_quote_details);
 
 
         Intent intent = getIntent();
         mSelectedQuote = (Quote) intent.getSerializableExtra(Constants.SELECTED_QUOTE);
 
         mQuoteDetailsFragment.setPresenter(mQuoteDetailsPresenter);
-
+        mUpdateDeleteButtonsFragment.setPresenter(mUpdateDeletePresenter);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -49,6 +58,11 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
                 .beginTransaction()
                 .replace(R.id.content, mQuoteDetailsFragment)
                 .commit();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.buttons, mUpdateDeleteButtonsFragment)
+                .commit();
     }
 
     @Override
@@ -56,5 +70,29 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
         super.onResume();
         mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
         mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
+        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
+        mUpdateDeletePresenter.setView(mUpdateDeleteButtonsFragment);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mDrawer.setupDrawer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
+        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
+        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
+        mUpdateDeletePresenter.setView(mUpdateDeleteButtonsFragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
+        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
     }
 }

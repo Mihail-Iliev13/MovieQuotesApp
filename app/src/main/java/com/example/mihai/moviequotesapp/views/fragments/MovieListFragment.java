@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,8 +29,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 
 public class MovieListFragment extends Fragment implements MovieListContracts.View {
+
+    @BindView(R.id.et_search)
+    EditText mSearch;
 
     @BindView(R.id.pb_loading)
     ProgressBar mProgressBar;
@@ -83,7 +87,7 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
     }
 
     private void showDialogBox(Quote quote) {
-        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete_dialog, null);
+        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setView(dialogBox);
@@ -181,4 +185,10 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
             mPresenter.loadMovies();
         });
     }
+
+
+    @OnTextChanged(R.id.et_search)
+    public void onTextChange(){
+        String pattern = mSearch.getText().toString();
+        mPresenter.filterQuotes(pattern);    }
 }

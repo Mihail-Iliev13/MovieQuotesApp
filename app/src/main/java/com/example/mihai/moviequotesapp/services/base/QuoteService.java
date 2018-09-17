@@ -23,4 +23,7 @@ public interface QuoteService {
 
     Map<String,List<Quote>> getQuotesByMovie() throws IOException;
 
+    List<String> getFilteredMoviesList(String pattern) throws IOException;
+
+    Map<String,List<Quote>> getFilteredQuotesByMovie(List<String> quoteList) throws IOException;
 }

@@ -105,7 +105,7 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     @Override
     public void showDialogBox() {
 
-        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete_dialog, null);
+        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setView(dialogBox);
