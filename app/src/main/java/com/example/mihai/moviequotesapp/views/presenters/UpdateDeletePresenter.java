@@ -6,6 +6,7 @@ import com.example.mihai.moviequotesapp.services.base.QuoteService;
 import com.example.mihai.moviequotesapp.views.contracts.UpdateDeleteButtonContracts;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -14,6 +15,7 @@ public class UpdateDeletePresenter implements UpdateDeleteButtonContracts.Presen
     private final AsyncRunner mAsyncRunner;
     private final QuoteService mService;
     private UpdateDeleteButtonContracts.View mView;
+    private int mSelectedQuoteID;
 
     @Inject
     public UpdateDeletePresenter (QuoteService service, AsyncRunner asyncRunner) {
@@ -23,14 +25,35 @@ public class UpdateDeletePresenter implements UpdateDeleteButtonContracts.Presen
 
     @Override
     public void update() {
-        mView.showUpdateActivity();
+        mAsyncRunner.runInBackground(() -> {
+            try {
+
+                List<Quote> quoteList = mService.getAll();
+                for (Quote quote : quoteList) {
+                    if (quote.getId() == mSelectedQuoteID) {
+                        mView.showUpdateActivity(quote);
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
-    public void delete(Quote quote) {
-        mAsyncRunner.runInBackground(() -> {
+    public void delete() {
+                   mAsyncRunner.runInBackground(() -> {
             try {
-                mService.deleteQuote(quote);
+
+                List<Quote> quoteList = mService.getAll();
+                for (Quote quote : quoteList) {
+                    if (quote.getId() == mSelectedQuoteID) {
+                        mService.deleteQuote(quote);
+                        break;
+                    }
+                }
+                mView.endActivity();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,7 +66,8 @@ public class UpdateDeletePresenter implements UpdateDeleteButtonContracts.Presen
     }
 
     @Override
-    public void navigateToUpdate() {
-        mView.showUpdateActivity();
+    public void setSelectedQuoteID(int id) {
+        this.mSelectedQuoteID = id;
     }
+
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
-import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
+import com.example.mihai.moviequotesapp.views.contracts.QuotesListContracts;
 import com.example.mihai.moviequotesapp.views.fragments.DrawerFragment;
 import com.example.mihai.moviequotesapp.views.fragments.ListQuotesFragment;
 
@@ -15,7 +15,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class ListAllQuotesActivity extends DaggerAppCompatActivity {
 
     @Inject
-    public ListAllQuotesContracts.Presenter mListPresenter;
+    public QuotesListContracts.Presenter mListPresenter;
 
     @Inject
     public ListQuotesFragment mQuotesListFragment;

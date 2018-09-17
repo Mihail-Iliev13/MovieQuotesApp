@@ -14,7 +14,7 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     private GenerateQuoteContracts.View mView;
     private AsyncRunner mAsyncRunner;
     private QuoteService mService;
-    private Quote mClickedQuote;
+    private Quote mSelectedQuote;
 
     @Inject
     public UpdateQuotePresenter(QuoteService service, AsyncRunner asyncRunner){
@@ -24,11 +24,16 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
 
     @Override
     public void generateQuote(String quoteText, String quoteMovie, String quotedCharacter, float quoteRating) throws IOException {
-        Quote quoteToBeUpdated = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
-        quoteToBeUpdated.setId(mClickedQuote.getId());
+//        Quote quoteToBeUpdated = new Quote(quoteText, quoteMovie, quotedCharacter, quoteRating);
+//        quoteToBeUpdated.setId(mSelectedQuote.getId());
+        mSelectedQuote.quoteText = quoteText;
+        mSelectedQuote.movie = quoteMovie;
+        mSelectedQuote.quotedCharacter = quotedCharacter;
+        mSelectedQuote.rating = quoteRating;
+
         mAsyncRunner.runInBackground(() -> {
             try {
-                mService.updateQuote(quoteToBeUpdated);
+                mService.updateQuote(mSelectedQuote);
                 mView.showToast();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -46,15 +51,15 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
 
     @Override
     public void fillFields() {
-     mView.setQuoteBody(mClickedQuote.getText());
-     mView.setQuoteMovie(mClickedQuote.getMovie());
-     mView.setQuotedCharacter(mClickedQuote.getQuotedCharacter());
-     mView.setRating(mClickedQuote.getRating());
+     mView.setQuoteBody(mSelectedQuote.getText());
+     mView.setQuoteMovie(mSelectedQuote.getMovie());
+     mView.setQuotedCharacter(mSelectedQuote.getQuotedCharacter());
+     mView.setRating(mSelectedQuote.getRating());
      mView.changeButton();
     }
 
     @Override
-    public void setClickedQuote(Quote quote) {
-        mClickedQuote = quote;
+    public void setSelectedQuote(Quote quote) {
+        mSelectedQuote = quote;
     }
 }

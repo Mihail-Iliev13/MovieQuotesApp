@@ -110,6 +110,7 @@ public class GenerateQuoteFragment extends Fragment implements GenerateQuoteCont
     @OnClick(R.id.btn_button)
     public void onClick(){
         try {
+
             String quoteText = mQuoteText.getText().toString();
             String quoteMovie = mMovie.getText().toString();
             String quotedCharacter = mQuotedCharacter.getText().toString();

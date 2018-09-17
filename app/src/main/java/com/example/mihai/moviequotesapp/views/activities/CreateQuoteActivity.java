@@ -21,7 +21,7 @@ public class CreateQuoteActivity extends DaggerAppCompatActivity {
     public GenerateQuoteContracts.Presenter mPresenter;
 
     @Inject
-    DrawerFragment mDrawer;
+    public DrawerFragment mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

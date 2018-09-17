@@ -3,6 +3,7 @@ package com.example.mihai.moviequotesapp.views.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class QuoteDetailsFragment extends Fragment implements QuoteDetailsContra
     public void setPresenter(QuoteDetailsContracts.Presenter presenter) {
         mPresenter = presenter;
     }
+
 
     private void runOnUi(Runnable action) {
         getActivity().runOnUiThread(action);

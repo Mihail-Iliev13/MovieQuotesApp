@@ -60,7 +60,8 @@ public class UpdateQuoteActivity extends DaggerAppCompatActivity {
     protected void onResume() {
         super.onResume();
         mPresenter.setView(mGenerateQuoteFragment);
-        mPresenter.setClickedQuote(mSelectedQuote);
+        mPresenter.setSelectedQuote(mSelectedQuote);
         mPresenter.fillFields();
     }
+
 }

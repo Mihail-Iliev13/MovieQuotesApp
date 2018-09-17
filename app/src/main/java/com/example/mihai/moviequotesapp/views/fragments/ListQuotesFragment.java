@@ -15,12 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mihai.moviequotesapp.Constants;
+import com.example.mihai.moviequotesapp.views.contracts.QuotesListContracts;
 import com.example.mihai.moviequotesapp.views.customadapters.QuotesAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
-import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ import butterknife.OnItemLongClick;
 import butterknife.OnTextChanged;
 
 
-public class ListQuotesFragment extends Fragment implements ListAllQuotesContracts.View {
+public class ListQuotesFragment extends Fragment implements QuotesListContracts.View {
 
     @BindView(R.id.lv_quotes)
     ListView mQuotesList;
@@ -47,7 +47,7 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     @Inject
     QuotesAdapter mAdapter;
 
-    private ListAllQuotesContracts.Presenter mPresenter;
+    private QuotesListContracts.Presenter mPresenter;
 
     private Quote mSelectedQuote;
 
@@ -78,7 +78,7 @@ public class ListQuotesFragment extends Fragment implements ListAllQuotesContrac
     }
 
     @Override
-    public void setPresenter(ListAllQuotesContracts.Presenter presenter) {
+    public void setPresenter(QuotesListContracts.Presenter presenter) {
         mPresenter = presenter;
     }
 

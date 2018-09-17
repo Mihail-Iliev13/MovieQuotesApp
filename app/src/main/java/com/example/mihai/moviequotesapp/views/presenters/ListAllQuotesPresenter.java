@@ -3,18 +3,18 @@ package com.example.mihai.moviequotesapp.views.presenters;
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
-import com.example.mihai.moviequotesapp.views.contracts.ListAllQuotesContracts;
+import com.example.mihai.moviequotesapp.views.contracts.QuotesListContracts;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter {
+public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
 
     private QuoteService mService;
     private AsyncRunner mAsyncRunner;
-    private ListAllQuotesContracts.View mListView;
+    private QuotesListContracts.View mListView;
 
     @Inject
     public ListAllQuotesPresenter(QuoteService service, AsyncRunner asyncRunner){
@@ -23,7 +23,7 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
     }
 
     @Override
-    public void setView(ListAllQuotesContracts.View view) {
+    public void setView(QuotesListContracts.View view) {
         mListView = view;
     }
 
@@ -33,7 +33,6 @@ public class ListAllQuotesPresenter implements ListAllQuotesContracts.Presenter 
         mAsyncRunner.runInBackground(() -> {
             try {
                 List<Quote> quotes = mService.getAll();
-
                 mListView.showQuotes(quotes);
 
                 if (quotes.isEmpty()) {

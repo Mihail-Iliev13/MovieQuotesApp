@@ -69,9 +69,9 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
     protected void onResume() {
         super.onResume();
         mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
-        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
-        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
+        mQuoteDetailsPresenter.setSelectedQuoteID(mSelectedQuote.getId());
         mUpdateDeletePresenter.setView(mUpdateDeleteButtonsFragment);
+        mUpdateDeletePresenter.setSelectedQuoteID(mSelectedQuote.getId());
     }
 
     @Override
@@ -80,19 +80,4 @@ public class QuoteDetailsActivity extends DaggerAppCompatActivity{
         mDrawer.setupDrawer();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        mQuoteDetailsPresenter.setView(mQuoteDetailsFragment);
-        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
-        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
-        mUpdateDeletePresenter.setView(mUpdateDeleteButtonsFragment);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        mQuoteDetailsPresenter.setSelectedQuote(mSelectedQuote);
-        mUpdateDeleteButtonsFragment.setSelectedQuote(mSelectedQuote);
-    }
 }

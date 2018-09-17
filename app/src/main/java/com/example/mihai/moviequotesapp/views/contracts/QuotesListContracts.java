@@ -7,7 +7,7 @@ import com.example.mihai.moviequotesapp.views.presenters.ListAllQuotesPresenter;
 import java.io.IOException;
 import java.util.List;
 
-public interface ListAllQuotesContracts {
+public interface QuotesListContracts {
     interface View {
         void setPresenter(Presenter presenter);
         void showQuotes(List<Quote> quotes);

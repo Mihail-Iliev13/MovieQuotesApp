@@ -23,7 +23,6 @@ public class UpdateDeleteButtonsFragment extends Fragment implements UpdateDelet
 
 
     private UpdateDeleteButtonContracts.Presenter mPresenter;
-    private Quote mSelectedQuote;
 
     @Inject
     public UpdateDeleteButtonsFragment() {
@@ -47,7 +46,7 @@ public class UpdateDeleteButtonsFragment extends Fragment implements UpdateDelet
 
     @OnClick(R.id.btn_delete)
     public void onDeleteClick(){
-        mPresenter.delete(mSelectedQuote);
+        mPresenter.delete();
     }
 
     @Override
@@ -56,14 +55,15 @@ public class UpdateDeleteButtonsFragment extends Fragment implements UpdateDelet
     }
 
     @Override
-    public void showUpdateActivity() {
+    public void showUpdateActivity(Quote quoteToBeUpdated) {
         Intent intent = new Intent(getContext(), UpdateQuoteActivity.class);
-        intent.putExtra(Constants.SELECTED_QUOTE, mSelectedQuote);
+        intent.putExtra(Constants.SELECTED_QUOTE, quoteToBeUpdated);
         startActivity(intent);
     }
 
     @Override
-    public void setSelectedQuote(Quote quote) {
-        mSelectedQuote = quote;
+    public void endActivity() {
+        getActivity().finish();
     }
+
 }

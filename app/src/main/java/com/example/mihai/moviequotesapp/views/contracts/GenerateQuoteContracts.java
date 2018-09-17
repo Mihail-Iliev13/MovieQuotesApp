@@ -28,7 +28,7 @@ public interface GenerateQuoteContracts {
 
     interface UpdatePresenter extends Presenter {
         void fillFields();
-        void setClickedQuote(Quote quote);
+        void setSelectedQuote(Quote quote);
     }
 
 }

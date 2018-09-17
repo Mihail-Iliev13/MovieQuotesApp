@@ -6,15 +6,14 @@ public interface UpdateDeleteButtonContracts {
 
     interface View {
        void setPresenter(Presenter presenter);
-       void showUpdateActivity();
-        void setSelectedQuote(Quote quote);
+       void showUpdateActivity(Quote quote);
+       void endActivity();
     }
 
     interface Presenter {
         void update();
-        void delete(Quote quote);
+        void delete();
         void setView(View view);
-        void navigateToUpdate();
+        void setSelectedQuoteID(int id);
     }
-
 }
