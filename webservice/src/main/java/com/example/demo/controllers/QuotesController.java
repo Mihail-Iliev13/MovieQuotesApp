@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,26 +29,50 @@ public class QuotesController {
 
     @GetMapping
     public List<Quote> getQuotes() {
-        return service.getQuotes();
+        List<Quote> quoteList = null;
+        try {
+            quoteList = service.getQuotes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quoteList;
     }
 
     @GetMapping("/{id}")
     public Quote getQuoteById(@PathVariable int id) {
-        return service.getQuoteById(id);
+        Quote quote = null;
+        try {
+            quote = service.getQuoteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quote;
     }
 
     @PostMapping
     public void createQuote(@Valid @RequestBody Quote newQuote) {
-        service.createQuote(newQuote);
+        try {
+            service.createQuote(newQuote);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @PutMapping("/{id}")
     public void updateQuote(@PathVariable int id, @Valid @RequestBody Quote newQuote) {
-        service.updateQuote(id, newQuote);
+        try {
+            service.updateQuote(id, newQuote);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @DeleteMapping("/{id}")
     public void deleteQuote(@PathVariable int id) {
-        service.deleteQuote(id);
+        try {
+            service.deleteQuote(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

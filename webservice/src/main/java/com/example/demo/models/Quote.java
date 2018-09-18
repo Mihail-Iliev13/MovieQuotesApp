@@ -22,11 +22,19 @@ public class Quote {
     @Max(value = 5, message = "Rating must be below 5")
     private float rating;
 
-public Quote(){
-    //def constructor required
-}
+    public Quote(){
 
-    public Quote(String quoteText, String movie, String quotedCharacter, int rating) {
+    }
+
+    public Quote(int quoteID, String quoteBody, String quoteMovie, String quotedCharacter, float rating){
+        setId(quoteID);
+        setQuoteText(quoteBody);
+        setMovie(quoteMovie);
+        setQuotedCharacter(quotedCharacter);
+        setRating(rating);
+    }
+
+    public Quote(String quoteText, String movie, String quotedCharacter, float rating) {
         this.quoteText = quoteText;
         this.movie = movie;
         this.quotedCharacter = quotedCharacter;
@@ -37,7 +45,7 @@ public Quote(){
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
