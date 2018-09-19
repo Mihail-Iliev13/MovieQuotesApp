@@ -4,13 +4,13 @@ import com.example.demo.models.Quote;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public interface QuotesRepository {
-    ResultSet getQuotes();
-    ResultSet getMovies();
-    ResultSet getCharacters();
+    List<Quote> getQuotes();
+    Set<String> getMovies();
+    Set<String> getCharacters();
     void updateQuote(int index, Quote quote) throws SQLException;
     void deleteQuote(int quoteID) throws SQLException;
     int getMovieID(String movie) throws SQLException;

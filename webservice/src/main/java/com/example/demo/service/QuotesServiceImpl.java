@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class QuotesServiceImpl implements QuotesService {
 
@@ -38,24 +40,13 @@ public class QuotesServiceImpl implements QuotesService {
     }
 
     @Override
-    public List<Quote> getQuotes() throws SQLException {
-        ResultSet resultSet =  repo.getQuotes();
-        List<Quote> quoteList = new ArrayList<>();
-        while (resultSet.next()) {
-            int quoteID = resultSet.getInt(1);
-            String quoteBody = resultSet.getString(2);
-            String quoteMovie = resultSet.getString(3);
-            String quotedCharacter = resultSet.getString(4);
-            float rating = resultSet.getFloat(5);
-            Quote currentQuote = new Quote(quoteID, quoteBody, quoteMovie, quotedCharacter, rating);
-            quoteList.add(currentQuote);
-        }
-        return quoteList;
+    public List<Quote> getQuotes(){
+        return repo.getQuotes();
     }
 
     @Override
-    public Quote getQuoteById(int id) throws SQLException {
-        return getQuotes().stream()
+    public Quote getQuoteById(int id){
+        return repo.getQuotes().stream()
                 .filter(x->x.getId()==id)
                 .findFirst()
                 .orElse(null);
@@ -83,22 +74,12 @@ public class QuotesServiceImpl implements QuotesService {
     }
 
     private boolean isMovieExisting(String quoteMovie) throws SQLException {
-        HashSet<String> existingMovies = new HashSet<>() ;
-        ResultSet resultSet = repo.getMovies();
-        while (resultSet.next()) {
-            existingMovies.add(resultSet.getString(1));
-        }
-
+        Set<String> existingMovies = repo.getMovies();
         return existingMovies.contains(quoteMovie);
     }
 
     private boolean isCharacterExisting(String character) throws SQLException {
-        HashSet<String> existingMovies = new HashSet<>() ;
-        ResultSet resultSet = repo.getCharacters();
-        while (resultSet.next()) {
-            existingMovies.add(resultSet.getString(1));
-        }
-
+        Set<String> existingMovies = repo.getCharacters();
         return existingMovies.contains(character);
     }
 }
