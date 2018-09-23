@@ -1,17 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.models.Character;
+import com.example.demo.models.Movie;
 import com.example.demo.models.Quote;
+import com.example.demo.models.QuoteDTO;
 import com.example.demo.repositories.base.QuotesRepository;
 import com.example.demo.service.base.QuotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class QuotesServiceImpl implements QuotesService {
@@ -24,46 +24,69 @@ public class QuotesServiceImpl implements QuotesService {
     }
 
     @Override
-    public void createQuote(Quote quote) throws SQLException {
-        String quoteMovie = quote.getMovie();
-        String quotedCharacter = quote.getQuotedCharacter();
+    public void createQuote(QuoteDTO quoteDTO) throws SQLException {
 
-        if (!isMovieExisting(quoteMovie)) {
-            repo.insertIntoMoviesTable(quoteMovie);
+        Quote quote = transformFromDTOToQuote(quoteDTO);
+
+        Movie movie = quote.getMovie();
+        Character quotedCharacter = quote.getQuotedCharacter();
+
+        if (!isMovieExisting(movie)) {
+            repo.insert(movie);
         }
 
         if (!isCharacterExisting(quotedCharacter)) {
-            repo.insertIntoCharactersTable(quotedCharacter);
+            repo.insert(quotedCharacter);
         }
 
-        repo.insertIntoQuotesTable(quote);
+        int movieID = repo.getMovieID(movie);
+        int characterID = repo.getCharacterID(quotedCharacter);
+        movie.setId(movieID);
+        quotedCharacter.setId(characterID);
+
+        repo.insert(quote);
     }
 
     @Override
-    public List<Quote> getQuotes(){
-        return repo.getQuotes();
+    public List<QuoteDTO> getQuotes(){
+         List<Quote> quoteList =  repo.getQuotes();
+        return transformFromQuoteToDTOList(quoteList);
     }
 
     @Override
-    public Quote getQuoteById(int id){
-        return repo.getQuotes().stream()
+    public QuoteDTO getQuoteById(int id){
+        Quote quote =  repo.getQuotes().stream()
                 .filter(x->x.getId()==id)
                 .findFirst()
                 .orElse(null);
+
+        if (quote == null) {
+            return null;
+        }
+
+        return new QuoteDTO(id, quote.getQuoteText(), quote.getMovie().getMovieName(),
+                quote.getQuotedCharacter().getCharacterName(), quote.getRating());
     }
 
     @Override
-    public void updateQuote(int id, Quote newQuote) throws SQLException {
-        String movie = newQuote.getMovie();
-        String character = newQuote.getQuotedCharacter();
+    public void updateQuote(int id, QuoteDTO newQuoteDTO) throws SQLException {
+        Quote newQuote = transformFromDTOToQuote(newQuoteDTO);
 
-        if (!isMovieExisting(newQuote.getMovie())) {
-            repo.insertIntoMoviesTable(movie);
+        Movie movie = newQuote.getMovie();
+        Character quotedCharacter = newQuote.getQuotedCharacter();
+
+        if (!isMovieExisting(movie)) {
+            repo.insert(movie);
         }
 
-        if (!isCharacterExisting(character)) {
-            repo.insertIntoCharactersTable(character);
+        if (!isCharacterExisting(quotedCharacter)) {
+            repo.insert(quotedCharacter);
         }
+
+        int movieID = repo.getMovieID(movie);
+        int characterID = repo.getCharacterID(quotedCharacter);
+        movie.setId(movieID);
+        quotedCharacter.setId(characterID);
 
         repo.updateQuote(id, newQuote);
     }
@@ -73,13 +96,44 @@ public class QuotesServiceImpl implements QuotesService {
         repo.deleteQuote(id);
     }
 
-    private boolean isMovieExisting(String quoteMovie) throws SQLException {
-        Set<String> existingMovies = repo.getMovies();
-        return existingMovies.contains(quoteMovie);
+    @Override
+    public List<QuoteDTO> transformFromQuoteToDTOList(List<Quote> quoteList) {
+        List<QuoteDTO> quoteDTOS = new ArrayList<>();
+
+        for (Quote quote : quoteList) {
+            QuoteDTO quoteDTO = new QuoteDTO(quote.getId(), quote.getQuoteText(),
+                    quote.getMovie().getMovieName(), quote.getQuotedCharacter().getCharacterName(),
+                    quote.getRating());
+
+            quoteDTOS.add(quoteDTO);
+        }
+
+        return quoteDTOS;
     }
 
-    private boolean isCharacterExisting(String character) throws SQLException {
-        Set<String> existingMovies = repo.getCharacters();
-        return existingMovies.contains(character);
+    @Override
+    public Quote transformFromDTOToQuote(QuoteDTO quoteDTO) {
+        Quote newQuote = new Quote();
+
+        newQuote.setId(quoteDTO.getId());
+        newQuote.setQuoteText(quoteDTO.getQuoteText());
+        newQuote.setMovie(new Movie(quoteDTO.getMovie()));
+        newQuote.setQuotedCharacter(new Character(quoteDTO.getQuotedCharacter()));
+        newQuote.setRating(quoteDTO.getRating());
+        return newQuote;
+    }
+
+    @Override
+    public boolean isMovieExisting(Movie quoteMovie) {
+        String movieName = quoteMovie.getMovieName();
+        Movie movie = repo.getMovieByName(movieName);
+        return movie != null;
+    }
+
+    @Override
+    public boolean isCharacterExisting(Character quotedCharacter) {
+        String quotedCharacterName = quotedCharacter.getCharacterName();
+        Character character = repo.getCharacterByName(quotedCharacterName);
+        return character != null;
     }
 }

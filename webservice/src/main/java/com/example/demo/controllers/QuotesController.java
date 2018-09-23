@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Quote;
+import com.example.demo.models.QuoteDTO;
 import com.example.demo.service.base.QuotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,19 +29,19 @@ public class QuotesController {
     }
 
     @GetMapping
-    public List<Quote> getQuotes() {
-        List<Quote> quoteList = null;
+    public List<QuoteDTO> getQuotes() {
+        List<QuoteDTO> quoteDTOList = null;
         try {
-            quoteList = service.getQuotes();
+            quoteDTOList = service.getQuotes();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return quoteList;
+        return quoteDTOList;
     }
 
     @GetMapping("/{id}")
-    public Quote getQuoteById(@PathVariable int id) {
-        Quote quote = null;
+    public QuoteDTO getQuoteById(@PathVariable int id) {
+        QuoteDTO quote = null;
         try {
             quote = service.getQuoteById(id);
         } catch (SQLException e) {
@@ -50,16 +51,16 @@ public class QuotesController {
     }
 
     @PostMapping
-    public void createQuote(@Valid @RequestBody Quote newQuote) {
+    public void createQuote(@Valid @RequestBody QuoteDTO newQuoteDTO) {
         try {
-            service.createQuote(newQuote);
+            service.createQuote(newQuoteDTO);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @PutMapping("/{id}")
-    public void updateQuote(@PathVariable int id, @Valid @RequestBody Quote newQuote) {
+    public void updateQuote(@PathVariable int id, @Valid @RequestBody QuoteDTO newQuote) {
         try {
             service.updateQuote(id, newQuote);
         } catch (SQLException e) {

@@ -1,7 +1,7 @@
 package com.example.mihai.moviequotesapp;
 
 public class Constants {
-    public static final String BASE_SERVER_URL = "http://192.168.0.108:8080/api/quotes";
+    public static final String BASE_SERVER_URL = "http://192.168.1.103:8080/api/quotes";
 
     public static final int MIN_QUOTE_BODY_LENGTH = 1;
 

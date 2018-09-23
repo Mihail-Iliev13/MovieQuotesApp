@@ -1,32 +1,48 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
+@Entity
+@Table(name = "quotes")
 public class Quote {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "quote_id")
     private int id;
 
     @NotNull(message = "Quote text must not be null")
+    @Column(name = "quote_body", nullable = false)
     private String quoteText;
 
-    @NotNull(message =  "Movie name must not be null")
-    private String movie;
 
     @NotNull(message = "Quoted character must not be null")
-    private String quotedCharacter;
+    @ManyToOne(targetEntity = Character.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "characters_character_id")
+    private Character quotedCharacter;
+
+    @NotNull(message =  "Movie name must not be null")
+    @JoinColumn(name = "movies_movie_id")
+    @ManyToOne(targetEntity = Movie.class, cascade = CascadeType.ALL)
+    private Movie movie;
+
 
     @Min(value = 0, message = "Rating must be positive")
     @Max(value = 5, message = "Rating must be below 5")
+
+    @Column(name = "rating")
     private float rating;
 
     public Quote(){
 
     }
 
-    public Quote(int quoteID, String quoteBody, String quoteMovie, String quotedCharacter, float rating){
+    public Quote(int quoteID, String quoteBody, Movie quoteMovie, Character quotedCharacter, float rating){
         setId(quoteID);
         setQuoteText(quoteBody);
         setMovie(quoteMovie);
@@ -34,11 +50,27 @@ public class Quote {
         setRating(rating);
     }
 
-    public Quote(String quoteText, String movie, String quotedCharacter, float rating) {
+    public Quote(String quoteText, Movie movie, Character quotedCharacter, float rating) {
         this.quoteText = quoteText;
         this.movie = movie;
         this.quotedCharacter = quotedCharacter;
         this.rating = rating;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getQuoteText() {
+        return quoteText;
+    }
+
+    public Character getQuotedCharacter() {
+        return quotedCharacter;
+    }
+
+    public Movie getMovie() {
+        return movie;
     }
 
     public float getRating() {
@@ -49,32 +81,16 @@ public class Quote {
         this.rating = rating;
     }
 
-    public String getQuotedCharacter() {
-        return quotedCharacter;
-    }
-
-    public void setQuotedCharacter(String quotedCharacter) {
+    public void setQuotedCharacter(Character quotedCharacter) {
         this.quotedCharacter = quotedCharacter;
     }
 
-    public String getMovie() {
-        return movie;
-    }
-
-    public void setMovie(String movie) {
+    public void setMovie(Movie movie) {
         this.movie = movie;
-    }
-
-    public String getQuoteText() {
-        return quoteText;
     }
 
     public void setQuoteText(String quoteText) {
         this.quoteText = quoteText;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {
