@@ -1,6 +1,8 @@
 package com.example.mihai.moviequotesapp.views.contracts;
 
 import com.example.mihai.moviequotesapp.models.Quote;
+import com.example.mihai.moviequotesapp.views.contracts.baseListContracts.BaseListPresenter;
+import com.example.mihai.moviequotesapp.views.fragments.UpdateDeleteDialogFragment;
 
 import java.util.List;
 import java.util.Map;
@@ -15,15 +17,13 @@ public interface MovieListContracts {
         void showLoading();
         void hideLoading();
         void showError(Exception e);
-        void showUpdateActivity(Quote quote);
+        void showDialogBox(Quote quote);
+        void setDialog(UpdateDeleteDialogFragment dialogFragment);
     }
 
-    interface Presenter{
+    interface Presenter extends BaseListPresenter{
         void setView(MovieListContracts.View view);
-        void loadMovies();
         void selectQuote(Quote quote);
-        void navigateToUpdate(Quote quote);
-        void deleteQuote(Quote quote);
         void filterQuotes(String pattern);
     }
 }

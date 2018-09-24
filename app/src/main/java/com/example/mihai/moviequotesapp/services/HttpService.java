@@ -109,7 +109,7 @@ public class HttpService implements QuoteService {
         Set<String> moviesSet = new HashSet<>();
 
         for (Quote quote : allQuotes) {
-            if (quote.getMovie().contains(pattern)) {
+            if (quote.getMovie().toLowerCase().contains(pattern)) {
                 moviesSet.add(quote.getMovie());
             }
         }
@@ -137,5 +137,10 @@ public class HttpService implements QuoteService {
         }
 
         return allQuotesByMovies;
+    }
+
+    @Override
+    public Quote getQuoteByID(int mSelectedQuoteID) throws IOException {
+        return mRepository.getQuoteByID(mSelectedQuoteID);
     }
 }

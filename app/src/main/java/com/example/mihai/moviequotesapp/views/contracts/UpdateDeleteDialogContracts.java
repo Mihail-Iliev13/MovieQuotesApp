@@ -2,18 +2,19 @@ package com.example.mihai.moviequotesapp.views.contracts;
 
 import com.example.mihai.moviequotesapp.models.Quote;
 
-public interface UpdateDeleteButtonContracts {
+public interface UpdateDeleteDialogContracts {
 
     interface View {
         void setPresenter(Presenter presenter);
         void showUpdateActivity(Quote quote);
-        void endActivity();
+
     }
 
-    interface Presenter {
+    interface Presenter{
+        void setView(View view);
         void update();
         void delete();
-        void setView(View view);
         void setSelectedQuoteID(int id);
     }
+
 }

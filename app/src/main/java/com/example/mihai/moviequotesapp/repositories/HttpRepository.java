@@ -56,4 +56,11 @@ public class HttpRepository implements Repository {
         String json = mJsonParser.toJson(object);
         mRequester.delete(url, json);
     }
+
+    @Override
+    public Quote getQuoteByID(int mSelectedQuoteID) throws IOException {
+        String url = mServerUrl + "/" + mSelectedQuoteID;
+        String response = mRequester.get(url);
+        return mJsonParser.fromJsonToObject(response);
+    }
 }

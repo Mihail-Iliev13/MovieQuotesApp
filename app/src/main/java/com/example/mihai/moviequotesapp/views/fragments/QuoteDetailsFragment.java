@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -33,6 +34,8 @@ public class QuoteDetailsFragment extends Fragment implements QuoteDetailsContra
     TextView mQuotedCharacterView;
     @BindView(R.id.rb_rating)
     RatingBar mRating;
+    @BindView(R.id.pb_loading)
+    ProgressBar mProgressBar;
 
     @Inject
     public QuoteDetailsFragment(){

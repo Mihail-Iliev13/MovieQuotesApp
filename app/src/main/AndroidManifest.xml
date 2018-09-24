@@ -27,7 +27,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".views.activities.UpdateQuoteActivity" />
-        <activity android:name=".views.activities.ListAllQuotesActivity" />
+        <activity android:name=".views.activities.QuotesListActivity" />
         <activity android:name=".views.activities.QuoteDetailsActivity" />
         <activity android:name=".views.activities.MovieListActivity"></activity>
     </application>

@@ -1,21 +1,20 @@
 package com.example.mihai.moviequotesapp.views.fragments;
 
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.support.v7.widget.SearchView;
 
 import com.example.mihai.moviequotesapp.Constants;
-import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 import com.example.mihai.moviequotesapp.views.customadapters.ExpandableListAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
@@ -29,12 +28,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnTextChanged;
 
-public class MovieListFragment extends Fragment implements MovieListContracts.View {
-
-    @BindView(R.id.et_search)
-    EditText mSearch;
+public class MovieListFragment extends Fragment implements MovieListContracts.View,
+        SearchView.OnQueryTextListener {
 
     @BindView(R.id.pb_loading)
     ProgressBar mProgressBar;
@@ -46,7 +42,9 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
     ExpandableListAdapter mExListAdapter;
 
     private MovieListContracts.Presenter mPresenter;
-    private AlertDialog mUpdateOrDeleteDialog;
+
+    private UpdateDeleteDialogFragment mDialogFragment;
+
 
     @Inject
     public MovieListFragment() {
@@ -63,7 +61,8 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
 
         mMovieList.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-            Quote selectedQuote = (Quote) mExListAdapter.getChild(groupPosition, childPosition);
+            Quote selectedQuote = (Quote) mExListAdapter
+                    .getChild(groupPosition, childPosition);
             mPresenter.selectQuote(selectedQuote);
             return true;
         });
@@ -86,36 +85,24 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
         return view;
     }
 
-    private void showDialogBox(Quote quote) {
-        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete, null);
+    @Override
+    public void showDialogBox(Quote quote) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(dialogBox);
+        FragmentManager manager = getFragmentManager();
+        mDialogFragment.getDialogPresenter()
+                .setSelectedQuoteID(quote.getId());
+        mDialogFragment.show(manager, "Alert Dialog");
+    }
 
-        mUpdateOrDeleteDialog = builder.create();
-        mUpdateOrDeleteDialog.show();
-
-        Button update = dialogBox.findViewById(R.id.btn_update);
-
-        update.setOnClickListener(updateButton -> {
-            mPresenter.navigateToUpdate(quote);
-        });
-
-        Button delete = dialogBox.findViewById(R.id.btn_delete);
-
-        delete.setOnClickListener(remove -> {
-            mPresenter.deleteQuote(quote);
-            mPresenter.loadMovies();
-            getActivity().runOnUiThread(() -> {
-                mUpdateOrDeleteDialog.hide();
-            });
-        });
+    @Override
+    public void setDialog(UpdateDeleteDialogFragment dialogFragment) {
+        this.mDialogFragment = dialogFragment;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.loadMovies();
+        mPresenter.loadItems();
     }
 
     @Override
@@ -175,20 +162,14 @@ public class MovieListFragment extends Fragment implements MovieListContracts.Vi
     }
 
     @Override
-    public void showUpdateActivity(Quote quote) {
-        Intent intent = new Intent(getContext(), UpdateQuoteActivity.class);
-        intent.putExtra(Constants.SELECTED_QUOTE, quote);
-        startActivity(intent);
-
-        getActivity().runOnUiThread(() -> {
-            mUpdateOrDeleteDialog.hide();
-            mPresenter.loadMovies();
-        });
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 
-
-    @OnTextChanged(R.id.et_search)
-    public void onTextChange(){
-        String pattern = mSearch.getText().toString();
-        mPresenter.filterQuotes(pattern);    }
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String pattern = newText.toLowerCase();
+        mPresenter.filterQuotes(pattern);
+        return true;
+    }
 }

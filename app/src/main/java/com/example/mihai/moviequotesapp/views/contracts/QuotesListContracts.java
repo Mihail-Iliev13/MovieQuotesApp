@@ -1,10 +1,9 @@
 package com.example.mihai.moviequotesapp.views.contracts;
 
 import com.example.mihai.moviequotesapp.models.Quote;
-import com.example.mihai.moviequotesapp.views.fragments.GenerateQuoteFragment;
-import com.example.mihai.moviequotesapp.views.presenters.ListAllQuotesPresenter;
+import com.example.mihai.moviequotesapp.views.contracts.baseListContracts.BaseListPresenter;
+import com.example.mihai.moviequotesapp.views.fragments.UpdateDeleteDialogFragment;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface QuotesListContracts {
@@ -12,21 +11,17 @@ public interface QuotesListContracts {
         void setPresenter(Presenter presenter);
         void showQuotes(List<Quote> quotes);
         void showEmptyQuotesList();
-        void showDialogBox();
-        void showUpdateActivity();
-        void showToast();
+        void showDialogBox(Quote quote);
         void showQuoteDetails(Quote quote);
         void showError(Exception e);
+        void setDialog(UpdateDeleteDialogFragment dialog);
         void showLoading();
         void hideLoading();
     }
-    interface Presenter{
+    interface Presenter extends BaseListPresenter{
         void setView(View view);
-        void loadQuotes();
         void filterQuotes(String pattern);
         void selectQuote(Quote quote);
         void selectOnLong(Quote quote);
-        void deleteQuote(Quote quote);
-        void navigateToUpdate();
     }
 }

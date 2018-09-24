@@ -8,6 +8,7 @@ import com.example.mihai.moviequotesapp.di.presentermodules.CreatePresenterModul
 import com.example.mihai.moviequotesapp.di.presentermodules.ListPresenterModule;
 import com.example.mihai.moviequotesapp.di.presentermodules.MovieListPresenterModule;
 import com.example.mihai.moviequotesapp.di.presentermodules.QuoteDetailsPresenterModule;
+import com.example.mihai.moviequotesapp.di.presentermodules.UpdateDeleteDialogPresenterModule;
 import com.example.mihai.moviequotesapp.di.presentermodules.UpdateDeletePresenterModule;
 import com.example.mihai.moviequotesapp.di.presentermodules.UpdatePresenterModule;
 import com.example.mihai.moviequotesapp.views.presenters.MovieListPresenter;
@@ -37,7 +38,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ViewsModule.class,
         QuoteDetailsPresenterModule.class,
         MovieListPresenterModule.class,
-        UpdateDeletePresenterModule.class
+        UpdateDeletePresenterModule.class,
+        UpdateDeleteDialogPresenterModule.class
 })
 public interface AppComponent extends AndroidInjector<MovieQuotesApp> {
 

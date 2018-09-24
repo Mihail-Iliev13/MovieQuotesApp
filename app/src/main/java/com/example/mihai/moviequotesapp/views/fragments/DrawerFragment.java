@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.views.activities.CreateQuoteActivity;
-import com.example.mihai.moviequotesapp.views.activities.ListAllQuotesActivity;
+import com.example.mihai.moviequotesapp.views.activities.QuotesListActivity;
 import com.example.mihai.moviequotesapp.views.activities.MovieListActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -99,7 +100,7 @@ public class DrawerFragment extends Fragment {
     private Intent getNextIntent(long identifier) {
 
         if (identifier == Constants.QUOTES_LIST_ACTIVITY_ID) {
-            return new Intent(getContext(), ListAllQuotesActivity.class);
+            return new Intent(getContext(), QuotesListActivity.class);
 
         } else if (identifier == Constants.CREATE_ACTIVITY_ID){
 

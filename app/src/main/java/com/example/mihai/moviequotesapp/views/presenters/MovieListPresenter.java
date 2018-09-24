@@ -31,7 +31,7 @@ public class MovieListPresenter implements MovieListContracts.Presenter {
     }
 
     @Override
-    public void loadMovies() {
+    public void loadItems() {
         mView.showLoading();
         mAsyncRunner.runInBackground(() -> {
             try {
@@ -53,22 +53,6 @@ public class MovieListPresenter implements MovieListContracts.Presenter {
     @Override
     public void selectQuote(Quote quote) {
         mView.showQuoteDetails(quote);
-    }
-
-    @Override
-    public void navigateToUpdate(Quote quote) {
-        mView.showUpdateActivity(quote);
-    }
-
-    @Override
-    public void deleteQuote(Quote quote) {
-        mAsyncRunner.runInBackground(() -> {
-            try {
-                mService.deleteQuote(quote);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     @Override

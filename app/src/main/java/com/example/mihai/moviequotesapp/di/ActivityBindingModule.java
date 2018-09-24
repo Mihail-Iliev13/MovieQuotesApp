@@ -5,7 +5,7 @@ import com.example.mihai.moviequotesapp.di.fragmentmodules.ListQuotesModule;
 import com.example.mihai.moviequotesapp.di.fragmentmodules.MovieListModule;
 import com.example.mihai.moviequotesapp.di.fragmentmodules.QuoteDetailsModule;
 import com.example.mihai.moviequotesapp.views.activities.CreateQuoteActivity;
-import com.example.mihai.moviequotesapp.views.activities.ListAllQuotesActivity;
+import com.example.mihai.moviequotesapp.views.activities.QuotesListActivity;
 import com.example.mihai.moviequotesapp.views.activities.MovieListActivity;
 import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
@@ -26,7 +26,7 @@ public abstract class ActivityBindingModule {
 
     @ActivityScoped()
     @ContributesAndroidInjector(modules = ListQuotesModule.class)
-    abstract ListAllQuotesActivity listQuoteActivity();
+    abstract QuotesListActivity listQuoteActivity();
 
     @ActivityScoped()
     @ContributesAndroidInjector(modules = QuoteDetailsModule.class)

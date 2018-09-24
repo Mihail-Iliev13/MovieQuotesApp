@@ -1,14 +1,14 @@
 package com.example.mihai.moviequotesapp.views.fragments;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,13 +33,10 @@ import butterknife.OnItemLongClick;
 import butterknife.OnTextChanged;
 
 
-public class ListQuotesFragment extends Fragment implements QuotesListContracts.View {
+public class ListQuotesFragment extends Fragment implements QuotesListContracts.View, SearchView.OnQueryTextListener {
 
     @BindView(R.id.lv_quotes)
     ListView mQuotesList;
-
-    @BindView(R.id.et_search)
-    EditText mSearch;
 
     @BindView(R.id.pb_loading)
     ProgressBar mProgressBar;
@@ -49,9 +46,9 @@ public class ListQuotesFragment extends Fragment implements QuotesListContracts.
 
     private QuotesListContracts.Presenter mPresenter;
 
-    private Quote mSelectedQuote;
 
-    private AlertDialog mUpdateOrDeleteDialog;
+    private UpdateDeleteDialogFragment mDialogFragment;
+
 
     @Inject
     public ListQuotesFragment() {
@@ -74,7 +71,7 @@ public class ListQuotesFragment extends Fragment implements QuotesListContracts.
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.loadQuotes();
+        mPresenter.loadItems();
     }
 
     @Override
@@ -103,52 +100,12 @@ public class ListQuotesFragment extends Fragment implements QuotesListContracts.
     }
 
     @Override
-    public void showDialogBox() {
+    public void showDialogBox(Quote quote) {
 
-        View dialogBox = getActivity().getLayoutInflater().inflate(R.layout.update_or_delete, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(dialogBox);
-
-        mUpdateOrDeleteDialog = builder.create();
-        mUpdateOrDeleteDialog.show();
-
-        Button update = dialogBox.findViewById(R.id.btn_update);
-
-        update.setOnClickListener(updateButton -> {
-            mPresenter.navigateToUpdate();
-        });
-
-        Button delete = dialogBox.findViewById(R.id.btn_delete);
-
-        delete.setOnClickListener(remove -> {
-            mPresenter.deleteQuote(mSelectedQuote);
-            mPresenter.loadQuotes();
-            getActivity().runOnUiThread(() -> {
-                mUpdateOrDeleteDialog.hide();
-            });
-        });
-    }
-
-    @Override
-    public void showToast() {
-        getActivity().runOnUiThread(() -> {
-            Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG)
-                    .show();
-        });
-    }
-
-    @Override
-    public void showUpdateActivity() {
-        Intent intent = new Intent(getContext(), UpdateQuoteActivity.class);
-        intent.putExtra(Constants.SELECTED_QUOTE, mSelectedQuote);
-        startActivity(intent);
-
-        getActivity().runOnUiThread(() -> {
-            mUpdateOrDeleteDialog.hide();
-            mAdapter.clear();
-        });
-
+        FragmentManager manager = getFragmentManager();
+        mDialogFragment.getDialogPresenter()
+                .setSelectedQuoteID(quote.getId());
+        mDialogFragment.show(manager, "Alert Dialog");
     }
 
     @Override
@@ -183,22 +140,33 @@ public class ListQuotesFragment extends Fragment implements QuotesListContracts.
         });
     }
 
-    @OnTextChanged(R.id.et_search)
-    public void onTextChanged() {
-        String pattern = mSearch.getText().toString();
-        mPresenter.filterQuotes(pattern);
-    }
-
     @OnItemLongClick(R.id.lv_quotes)
     public boolean onItemLongClick (int position) {
-       mSelectedQuote = (Quote) mAdapter.getItem(position);
-       mPresenter.selectOnLong(mSelectedQuote);
+       Quote quote = (Quote) mAdapter.getItem(position);
+       mPresenter.selectOnLong(quote);
        return true;
     }
 
     @OnItemClick(R.id.lv_quotes)
     public void onItemClick(int position) {
-        mSelectedQuote = (Quote) mAdapter.getItem(position);
-        mPresenter.selectQuote(mSelectedQuote);
+        Quote quote = (Quote) mAdapter.getItem(position);
+        mPresenter.selectQuote(quote);
+    }
+
+    @Override
+    public void setDialog(UpdateDeleteDialogFragment dialog) {
+        this.mDialogFragment = dialog;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String pattern = s.toLowerCase();
+        mPresenter.filterQuotes(pattern);
+        return true;
     }
 }

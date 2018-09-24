@@ -1,13 +1,16 @@
 package com.example.mihai.moviequotesapp.views.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.view.Menu;
+import android.view.MenuItem;
+import android.support.v7.widget.SearchView;
 import com.example.mihai.moviequotesapp.Constants;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.views.contracts.MovieListContracts;
 import com.example.mihai.moviequotesapp.views.fragments.DrawerFragment;
 import com.example.mihai.moviequotesapp.views.fragments.MovieListFragment;
+import com.example.mihai.moviequotesapp.views.fragments.UpdateDeleteDialogFragment;
+import com.example.mihai.moviequotesapp.views.presenters.UpdateDeleteDialogPresenter;
 
 import javax.inject.Inject;
 
@@ -22,7 +25,13 @@ public class MovieListActivity extends DaggerAppCompatActivity {
     MovieListFragment mMovieList;
 
     @Inject
+    UpdateDeleteDialogFragment mDialog;
+
+    @Inject
     MovieListContracts.Presenter mPresenter;
+
+    @Inject
+    UpdateDeleteDialogPresenter mDialogPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +39,11 @@ public class MovieListActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_two_fragment_layout);
 
         mDrawer.setID(Constants.MOVIES_LIST_ACTIVITY_ID);
+        setSupportActionBar(mDrawer.getToolbar());
+
         mMovieList.setPresenter(mPresenter);
+        mDialog.setPresenter(mDialogPresenter);
+        mDialog.setListPresenter(mPresenter);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -47,11 +60,26 @@ public class MovieListActivity extends DaggerAppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDrawer.setupDrawer();
+
+        mDrawer.getToolbar()
+                .inflateMenu(R.menu.toolbar_menu);
+
+        MenuItem item = mDrawer
+                .getToolbar()
+                .getMenu()
+                .findItem(R.id.action_search);
+
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(mMovieList);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.setView(mMovieList);
+        mDialogPresenter.setView(mDialog);
+        mMovieList.setDialog(mDialog);
     }
+
 }

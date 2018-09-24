@@ -28,7 +28,7 @@ public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
     }
 
     @Override
-    public void loadQuotes() {
+    public void loadItems() {
         mListView.showLoading();
         mAsyncRunner.runInBackground(() -> {
             try {
@@ -68,24 +68,24 @@ public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
 
     @Override
     public void selectOnLong(Quote quote) {
-        mListView.showDialogBox();
+        mListView.showDialogBox(quote);
     }
 
-    @Override
-    public void deleteQuote(Quote quote) {
+//    @Override
+//    public void deleteQuote(Quote quote) {
+//
+//        mAsyncRunner.runInBackground(() -> {
+//            try {
+//                mService.deleteQuote(quote);
+//                mListView.showToast();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 
-        mAsyncRunner.runInBackground(() -> {
-            try {
-                mService.deleteQuote(quote);
-                mListView.showToast();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    @Override
-    public void navigateToUpdate() {
-        mListView.showUpdateActivity();
-    }
+//    @Override
+//    public void navigateToUpdate(Quote quote) {
+//        mListView.showUpdateActivity(quote);
+//    }
 }
