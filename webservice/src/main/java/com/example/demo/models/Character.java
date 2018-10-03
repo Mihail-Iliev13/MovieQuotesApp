@@ -54,4 +54,19 @@ public class Character {
     public void setQuoteList(List<Quote> quoteList) {
         this.quoteList = quoteList;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Character)) {
+            return false;
+        }
+
+        Character character = (Character) obj;
+        return character.getCharacterName().equals(characterName);
+    }
+
+    @Override
+    public int hashCode() {
+        return characterName.hashCode();
+    }
 }

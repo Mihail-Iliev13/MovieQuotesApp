@@ -67,10 +67,11 @@ public class UpdateDeleteDialogFragment extends AppCompatDialogFragment
 
     @Override
     public void showUpdateActivity(Quote quote) {
-        getActivity().runOnUiThread(this::dismiss);
         Intent intent = new Intent(getActivity(), UpdateQuoteActivity.class);
         intent.putExtra(Constants.SELECTED_QUOTE, quote);
         startActivity(intent);
+        getActivity().runOnUiThread(this::dismiss);
+
     }
 
 

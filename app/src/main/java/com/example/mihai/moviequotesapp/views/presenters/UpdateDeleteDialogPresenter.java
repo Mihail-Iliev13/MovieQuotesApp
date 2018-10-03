@@ -29,13 +29,8 @@ public class UpdateDeleteDialogPresenter implements UpdateDeleteDialogContracts.
         mAsyncRunner.runInBackground(() -> {
             try {
 
-                List<Quote> quoteList = mService.getAll();
-                for (Quote quote : quoteList) {
-                    if (quote.getId() == mSelectedQuoteID) {
-                        mView.showUpdateActivity(quote);
-                        break;
-                    }
-                }
+                Quote quote = mService.getQuoteByID(mSelectedQuoteID);
+                mView.showUpdateActivity(quote);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,13 +43,8 @@ public class UpdateDeleteDialogPresenter implements UpdateDeleteDialogContracts.
         mAsyncRunner.runInBackground(() -> {
             try {
 
-                List<Quote> quoteList = mService.getAll();
-                for (Quote quote : quoteList) {
-                    if (quote.getId() == mSelectedQuoteID) {
-                        mService.deleteQuote(quote);
-                        break;
-                    }
-                }
+                Quote quote = mService.getQuoteByID(mSelectedQuoteID);
+                mService.deleteQuote(quote);
 
             } catch (IOException e) {
                 e.printStackTrace();

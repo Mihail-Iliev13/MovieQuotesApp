@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activities.CreateQuoteActivity">
+        <activity android:name=".views.activities.CreateQuoteActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".views.activities.UpdateQuoteActivity" />
+        <activity android:name=".views.activities.UpdateQuoteActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".views.activities.QuotesListActivity" />
         <activity android:name=".views.activities.QuoteDetailsActivity" />
         <activity android:name=".views.activities.MovieListActivity"></activity>

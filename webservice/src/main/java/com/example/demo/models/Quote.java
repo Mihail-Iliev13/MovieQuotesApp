@@ -1,14 +1,17 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "quotes")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Quote {
 
     @Id
@@ -95,5 +98,27 @@ public class Quote {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+       if (!(obj instanceof Quote)) {
+           return false;
+       }
+       Quote quote = (Quote) obj;
+
+       return quotedCharacter.equals(quote.quotedCharacter)
+               && quoteText.equals(quote.getQuoteText())
+               && movie.equals(quote.movie)
+               && Float.compare(rating, quote.getRating()) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = quoteText.hashCode();
+        result = result * 31 * movie.hashCode();
+        result = result * 31 * quotedCharacter.hashCode();
+        result = result * 31 * Float.hashCode(rating);
+        return result;
     }
 }

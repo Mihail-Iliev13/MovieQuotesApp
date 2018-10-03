@@ -24,7 +24,7 @@ public class QuotesServiceImpl implements QuotesService {
     }
 
     @Override
-    public void createQuote(QuoteDTO quoteDTO) throws SQLException {
+    public Quote createQuote(QuoteDTO quoteDTO) throws SQLException {
 
         Quote quote = transformFromDTOToQuote(quoteDTO);
 
@@ -44,7 +44,7 @@ public class QuotesServiceImpl implements QuotesService {
         movie.setId(movieID);
         quotedCharacter.setId(characterID);
 
-        repo.insert(quote);
+       return (Quote)repo.insert(quote);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class QuotesServiceImpl implements QuotesService {
     }
 
     @Override
-    public void updateQuote(int id, QuoteDTO newQuoteDTO) throws SQLException {
+    public Quote updateQuote(int id, QuoteDTO newQuoteDTO) throws SQLException {
         Quote newQuote = transformFromDTOToQuote(newQuoteDTO);
 
         Movie movie = newQuote.getMovie();
@@ -88,12 +88,12 @@ public class QuotesServiceImpl implements QuotesService {
         movie.setId(movieID);
         quotedCharacter.setId(characterID);
 
-        repo.updateQuote(id, newQuote);
+       return repo.updateQuote(id, newQuote);
     }
 
     @Override
-    public void deleteQuote(int id) throws SQLException {
-        repo.deleteQuote(id);
+    public Quote deleteQuote(int id) throws SQLException {
+       return repo.deleteQuote(id);
     }
 
     @Override

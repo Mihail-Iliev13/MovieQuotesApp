@@ -59,4 +59,5 @@ public class QuoteDTO {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
 }

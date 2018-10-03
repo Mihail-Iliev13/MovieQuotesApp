@@ -13,7 +13,7 @@ public interface QuotesListContracts {
         void showEmptyQuotesList();
         void showDialogBox(Quote quote);
         void showQuoteDetails(Quote quote);
-        void showError(Exception e);
+        void showError(Throwable e);
         void setDialog(UpdateDeleteDialogFragment dialog);
         void showLoading();
         void hideLoading();

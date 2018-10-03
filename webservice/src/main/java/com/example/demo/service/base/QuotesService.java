@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface QuotesService {
-    void createQuote(QuoteDTO quoteDTO) throws SQLException;
+    Quote createQuote(QuoteDTO quoteDTO) throws SQLException;
     List<QuoteDTO> getQuotes() throws SQLException;
     QuoteDTO getQuoteById(int id) throws SQLException;
-    void updateQuote(int id,QuoteDTO quote) throws SQLException;
-    void deleteQuote(int id) throws SQLException;
+    Quote updateQuote(int id,QuoteDTO quote) throws SQLException;
+    Quote deleteQuote(int id) throws SQLException;
     List<QuoteDTO> transformFromQuoteToDTOList(List<Quote> quoteList);
     Quote transformFromDTOToQuote(QuoteDTO quoteDTO);
     boolean isMovieExisting(Movie quoteMovie);

@@ -54,4 +54,17 @@ public class Movie {
         this.movieName = movieName;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Movie)) {
+            return false;
+        }
+        Movie movie = (Movie)obj;
+        return movieName.equals(movie.getMovieName());
+    }
+
+    @Override
+    public int hashCode() {
+        return movieName.hashCode();
+    }
 }

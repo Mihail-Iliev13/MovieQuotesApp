@@ -7,6 +7,7 @@ import com.example.mihai.moviequotesapp.views.contracts.UpdateDeleteButtonContra
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Observer;
 
 import javax.inject.Inject;
 
@@ -41,18 +42,9 @@ public class UpdateDeletePresenter implements UpdateDeleteButtonContracts.Presen
     public void delete() {
                    mAsyncRunner.runInBackground(() -> {
             try {
-
-                List<Quote> quoteList = mService.getAll();
-                for (Quote quote : quoteList) {
-                    if (quote.getId() == mSelectedQuoteID) {
-                        mService.deleteQuote(quote);
-                        break;
-                    }
-                }
-
-                if (mView instanceof UpdateDeleteButtonContracts.View) {
-                    ((UpdateDeleteButtonContracts.View)mView).endActivity();
-                }
+                Quote quote = mService.getQuoteByID(mSelectedQuoteID);
+                mService.deleteQuote(quote);
+                mView.endActivity();
 
             } catch (IOException e) {
                 e.printStackTrace();

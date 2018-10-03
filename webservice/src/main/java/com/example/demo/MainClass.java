@@ -6,10 +6,13 @@ import com.example.demo.models.Quote;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
+@EnableCaching
 public class MainClass {
 
     public static void main(String[] args) {
@@ -25,4 +28,5 @@ public class MainClass {
                 .addAnnotatedClass(Character.class)
                 .buildSessionFactory();
     }
+
 }

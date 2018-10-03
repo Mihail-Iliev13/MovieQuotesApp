@@ -7,7 +7,6 @@ import com.example.mihai.moviequotesapp.views.contracts.QuotesListContracts;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.inject.Inject;
 
 public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
@@ -45,6 +44,7 @@ public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
             }
             mListView.hideLoading();
         });
+
     }
 
     @Override
@@ -70,22 +70,4 @@ public class ListAllQuotesPresenter implements QuotesListContracts.Presenter {
     public void selectOnLong(Quote quote) {
         mListView.showDialogBox(quote);
     }
-
-//    @Override
-//    public void deleteQuote(Quote quote) {
-//
-//        mAsyncRunner.runInBackground(() -> {
-//            try {
-//                mService.deleteQuote(quote);
-//                mListView.showToast();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//    }
-
-//    @Override
-//    public void navigateToUpdate(Quote quote) {
-//        mListView.showUpdateActivity(quote);
-//    }
 }

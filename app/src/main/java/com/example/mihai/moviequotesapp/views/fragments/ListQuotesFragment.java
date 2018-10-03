@@ -9,7 +9,6 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import com.example.mihai.moviequotesapp.views.customadapters.QuotesAdapter;
 import com.example.mihai.moviequotesapp.R;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
-import com.example.mihai.moviequotesapp.views.activities.UpdateQuoteActivity;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
-import butterknife.OnTextChanged;
+import io.reactivex.Observable;
 
 
 public class ListQuotesFragment extends Fragment implements QuotesListContracts.View, SearchView.OnQueryTextListener {
@@ -116,7 +114,7 @@ public class ListQuotesFragment extends Fragment implements QuotesListContracts.
     }
 
     @Override
-    public void showError(Exception e) {
+    public void showError(Throwable e) {
         getActivity().runOnUiThread( () -> {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG)
                     .show();

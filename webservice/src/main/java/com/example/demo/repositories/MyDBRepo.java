@@ -47,12 +47,13 @@ public class MyDBRepo implements QuotesRepository {
     }
 
     @Override
-    public void updateQuote(int id, Quote updatedQuote) {
+    public Quote updateQuote(int id, Quote updatedQuote) {
+        Quote quoteToBeUpdated = null;
         try (
                 Session session = sessionFactory.openSession()
         ){
             session.beginTransaction();
-            Quote quoteToBeUpdated = session.get(Quote.class, id);
+            quoteToBeUpdated = session.get(Quote.class, id);
 
             quoteToBeUpdated.setQuoteText(updatedQuote.getQuoteText());
 
@@ -66,21 +67,21 @@ public class MyDBRepo implements QuotesRepository {
                 quoteToBeUpdated.setQuotedCharacter(updatedQuote.getQuotedCharacter());
             }
 
-            quoteToBeUpdated.setRating(quoteToBeUpdated.getRating());
+            quoteToBeUpdated.setRating(updatedQuote.getRating());
             session.update(quoteToBeUpdated);
             session.getTransaction().commit();
         }
+        return quoteToBeUpdated;
     }
 
-
     @Override
-    public void deleteQuote(int id) {
-
+    public Quote deleteQuote(int id) {
+        Quote quoteToBeDeleted = null;
         try (
                 Session session = sessionFactory.openSession()
         ){
             session.beginTransaction();
-            Quote quoteToBeDeleted = session.get(Quote.class, id);
+            quoteToBeDeleted = session.get(Quote.class, id);
             quoteToBeDeleted.setMovie(null);
             quoteToBeDeleted.setQuotedCharacter(null);
             session.delete(quoteToBeDeleted);
@@ -88,10 +89,11 @@ public class MyDBRepo implements QuotesRepository {
         } catch (NoResultException e) {
             e.printStackTrace();
         }
+        return quoteToBeDeleted;
     }
 
     @Override
-    public void insert(Object object) {
+    public Object insert(Object object) {
 
       try (
            Session session = sessionFactory.openSession()
@@ -100,6 +102,7 @@ public class MyDBRepo implements QuotesRepository {
           session.save(object);
           session.getTransaction().commit();
       }
+      return object;
     }
 
     @Override
