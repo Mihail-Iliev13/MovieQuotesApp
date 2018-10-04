@@ -48,9 +48,8 @@ public class UpdateDeleteDialogPresenter implements UpdateDeleteDialogContracts.
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+        }
         });
-
     }
 
     @Override
