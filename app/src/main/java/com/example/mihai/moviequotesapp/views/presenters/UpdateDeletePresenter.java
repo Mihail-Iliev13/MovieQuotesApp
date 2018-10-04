@@ -45,7 +45,6 @@ public class UpdateDeletePresenter implements UpdateDeleteButtonContracts.Presen
                 Quote quote = mService.getQuoteByID(mSelectedQuoteID);
                 mService.deleteQuote(quote);
                 mView.endActivity();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

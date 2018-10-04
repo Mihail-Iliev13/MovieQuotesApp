@@ -61,4 +61,5 @@ public class UpdateQuotePresenter implements GenerateQuoteContracts.UpdatePresen
     public void setSelectedQuote(Quote quote) {
         mSelectedQuote = quote;
     }
+
 }

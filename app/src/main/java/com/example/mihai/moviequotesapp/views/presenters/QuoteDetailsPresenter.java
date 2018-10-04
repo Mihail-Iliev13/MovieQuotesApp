@@ -3,7 +3,6 @@ package com.example.mihai.moviequotesapp.views.presenters;
 import com.example.mihai.moviequotesapp.async.base.AsyncRunner;
 import com.example.mihai.moviequotesapp.models.Quote;
 import com.example.mihai.moviequotesapp.services.base.QuoteService;
-import com.example.mihai.moviequotesapp.views.activities.QuoteDetailsActivity;
 import com.example.mihai.moviequotesapp.views.contracts.QuoteDetailsContracts;
 
 import java.io.IOException;
